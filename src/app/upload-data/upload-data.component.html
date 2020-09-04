@@ -1,0 +1,63 @@
+<div class="container">
+  <br><br>
+  <h3 class=""><b>Enter the Details Below</b></h3>
+  <p class="proj-info" >Information:</p>
+  <div class="underline"></div>
+  <br>
+    <div class="card-body">
+        <form [formGroup]="fileUploadFormGroup" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Circular Detail</label>
+                <input type="text" formControlName="circularDetail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.circularDetail.errors }" />
+                <div *ngIf="submitted && f.circularDetail.errors" class="invalid-feedback">
+                    <div *ngIf="f.circularDetail.errors.required">Circular Detail is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+            <div class="form-group">
+              <label>Circular Number</label>
+              <input type="text" formControlName="circularNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.circularNumber.errors }" />
+              <div *ngIf="submitted && f.circularNumber.errors" class="invalid-feedback">
+                  <div *ngIf="f.circularNumber.errors.required">Client Name is required</div>
+              </div>
+           </div>
+          </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <mat-label>Date &nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
+                    <input class="dateInput" matInput [matDatepicker]="picker1" formControlName="date">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                        <div *ngIf="f.date.errors.required">Date is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row"> 
+            <div  class="form-group">
+                <label>Department</label>
+                <input type="text" formControlName="department" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.department.errors }" />
+                <div *ngIf="submitted && f.department.errors" class="invalid-feedback">
+                    <div *ngIf="f.department.errors.required">Department is required</div>
+                </div>
+            </div>
+            </div>
+
+            <div class="form-row">
+            <div  class="form-group">
+              <label style="margin-right:20px;">Upload File</label>
+              <input class="md-button md-raised md-primary" (change)="fileUpload($event)" formControlName="file" id="input-file-id" multiple type="file" />
+              <div *ngIf="submitted && f.file.errors" class="invalid-feedback">
+                  <div *ngIf="f.file.errors.required">File Name is required</div>
+              </div>
+          </div>
+          </div>
+
+        <button type="button" class="btn btn-sm btn-shape outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;" (click)="onSubmit()">Submit</button>
+        </form>
+    </div>
+</div>

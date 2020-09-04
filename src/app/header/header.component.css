@@ -1,0 +1,58 @@
+.header {
+    top: 0px;
+    left: 0px;
+    width: 1265px;
+    height: 55px;
+    background: #000000 0% 0% no-repeat padding-box;
+    opacity: 1;
+    display:flex;
+    position: sticky;
+    margin: 0px;
+}
+
+.headerName {
+    left: 33px;
+    width: 299px;
+    height: 62px;
+    text-align: left;
+    font: Bold 35px/61px Open Sans;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    
+}
+
+.header-logo{
+    height:30px;
+    width:140px;
+    margin-top:10px;
+}
+
+.headerImg {
+    margin-top: 7px;
+    width: 36px;
+    height: 34px;
+    margin-left: 900px;
+    background: #F7F9FC 0% 0% no-repeat padding-box;
+    opacity: 1;
+    border-radius: 48px;
+    opacity: 1;
+}
+
+.welcomeText {
+    margin-top: 20px;
+    margin-left: 915px;
+    width: 233px;
+    height: 34px;
+    text-align: left;
+    font: Semibold 20px/30px Open Sans;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.secondDiv {
+    float: right;
+    display:flex;
+    justify-content: end;
+}

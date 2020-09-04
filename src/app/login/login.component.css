@@ -1,0 +1,27 @@
+h3 {
+    text-align: center;
+}
+
+.main-div{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+}
+
+.mat-card {
+    margin-top:30px;
+    height:90%;
+    width:500px;
+    border-radius: 2px;
+}
+
+.mat-form-field {
+    padding-left: 40px;
+    width: 300px;
+}
+
+.mat-card-actions {
+    padding-left: 40px;
+}

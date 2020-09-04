@@ -1,0 +1,47 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserDetails, User } from '../model';
+import { CircularServiceService } from '../circular-service.service';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+  public  username:  string ;
+  public  password:  string;
+  public currentUser: User;
+  ninv = true;
+  pinv = true;
+  constructor(private router: Router, private circularService: CircularServiceService) { }
+
+  ngOnInit() {
+  }
+
+  login() {
+    this.ninv = true;
+    this.pinv = true;
+    console.log(this.username);
+    console.log(this.password);
+    this.currentUser = new User();
+    this.circularService.login(this.currentUser).subscribe((result) => {
+         console.log(result);
+         this.circularService.clientName = result.clientNumber;
+         this.router.navigate(['admin/upload']);
+    });
+
+  }
+
+  onKeyUsername() {
+    this.ninv = true;
+  }
+
+  onKeyPass() {
+    this.pinv = true;
+  }
+
+  close() {
+  }
+
+}

@@ -1,0 +1,7 @@
+<div class="main-div">
+  <div [ngClass]="{'div-select':divColor=== 'a'}"> <a routerLink="upload" routerLinkActive="active" (click)="getColor('a')">Upload</a> </div>
+  <div [ngClass]="{'div-select':divColor=== 'b'}"> <a routerLink="search" routerLinkActive="active" (click)="getColor('b')">Search</a> </div>
+ <!-- <div [ngClass]="{'div-select':divColor=== 'c'}"> <a routerLink="meter" routerLinkActive="active" (click)="getColor('c')">Health Meter</a> </div> -->
+</div>
+
+<router-outlet></router-outlet>
