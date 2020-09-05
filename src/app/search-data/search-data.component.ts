@@ -68,6 +68,7 @@ export class SearchDataComponent implements OnInit {
     console.log('In search method');
     console.log(this.searchValue);
     const clientName = this.circularService.clientName;
+    if (this.searchValue !== '' && this.searchValue !== undefined ) {
     this.circularService.searchByKey(clientName, this.searchValue).subscribe((result) => {
       console.log(result);
       circularData = result;
@@ -76,6 +77,9 @@ export class SearchDataComponent implements OnInit {
           this.showTable = true;
       }
    });
+  } else {
+     this.showTable = false;
+  }
   }
 
   /** Whether the number of selected elements matches the total number of rows. */

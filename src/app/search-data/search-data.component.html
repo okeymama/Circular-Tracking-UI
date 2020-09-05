@@ -2,7 +2,7 @@
 
   <mat-form-field class="example-full-width">
    <!-- <span matPrefix>+1 &nbsp;</span> -->
-    <input type="text" matInput placeholder="search" name="search" [(ngModel)]="searchValue">
+    <input type="text" (keyup.enter)="search()" matInput placeholder="search" name="search" [(ngModel)]="searchValue">
     <mat-icon matSuffix (click)="search()">search</mat-icon>
   </mat-form-field>
 </form>
