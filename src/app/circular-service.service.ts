@@ -50,8 +50,8 @@ export class CircularServiceService {
     console.log('in user service funtion');
     console.log(user);
     const params = new HttpParams()
-    .set('username', user.username)
-    .set('password', user.password);
+    .set('login.username', user.username)
+    .set('login.password', user.password);
     return this.http.get<UserDetails>(this.baseURL + 'User-Login', {params} );
   }
 

@@ -25,10 +25,16 @@ export class LoginComponent implements OnInit {
     console.log(this.username);
     console.log(this.password);
     this.currentUser = new User();
+    this.currentUser.username = this.username;
+    this.currentUser.password = this.password;
     this.circularService.login(this.currentUser).subscribe((result) => {
          console.log(result);
          this.circularService.clientName = result.clientNumber;
-         this.router.navigate(['admin/upload']);
+         if (result.isAdmin) {
+          this.router.navigate(['admin/upload']);
+         } else {
+          this.router.navigate(['search']);
+         }
     });
 
   }
