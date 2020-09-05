@@ -36,6 +36,10 @@ const routes: Routes = [
     ]
 
   },
+  {
+    path: 'search',
+    component: SearchDataComponent
+  },
 
 ];
 
