@@ -75,3 +75,22 @@ input.dateInput {
     background-color: #86BC25;
     font-size:14px;
   }
+
+  .btn-shape1 {
+
+    border-radius: 4rem;
+    cursor: pointer;
+    background-color: grey;
+    font-size:14px;
+  }
+
+.error-desc {
+    font-size: 12.8px;
+    color: #dc3545;
+}
+
+.error-desc1 {
+    font-size: 12.8px;
+    color: #dc3545;
+    height: 18px;
+}

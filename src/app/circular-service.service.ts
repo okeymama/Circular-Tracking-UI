@@ -40,6 +40,12 @@ export class CircularServiceService {
     return this.http.post(this.baseURL + 'App/Circular', circularDetails ,  { responseType : 'text'});
   }
 
+  checkDuplicate(clientName, circularNumber) {
+    console.log('check duplicate service');
+    console.log(clientName + ' ' + circularNumber);
+    return this.http.get(this.baseURL + 'App/Duplicate-Circular/' + clientName + '/' + circularNumber);
+  }
+
   searchByKey(clientName, key) {
     console.log('in service for search by key');
     console.log(clientName + ' ' + key);

@@ -1,11 +1,14 @@
+<app-header [logout]="false" ></app-header>
 <div class="main-div">
+
   <br><br>
-<mat-card>
+<div class="sub-div">
 <br>
-<h3> Login</h3> <br>
+<h3> Login</h3>
+<hr class="divider">
   <mat-form-field>
     <i class="fa fa-user"></i>
-    <input  matInput (keyup)="onKeyUsername($event)" placeholder="Username" #usernameCheck="ngModel" [(ngModel)]="username"  type="text" name="username"  required>
+    <input  matInput (keyup)="onKeyUsername()" placeholder="Username" #usernameCheck="ngModel" [(ngModel)]="username"  type="text" name="username"  required>
   </mat-form-field>
   <div *ngIf="usernameCheck?.touched" >
     <div *ngIf="usernameCheck.errors?.required" class="alert alert-danger" >
@@ -14,7 +17,7 @@
     </div>
     <div [hidden]='ninv' class="alert alert-danger" >Username Doesn't Exist</div>
     <mat-form-field>
-    <input  matInput  (keyup)="onKeyPass($event)" placeholder="your password" #passwordCheck="ngModel" [(ngModel)]="password"  type="password"  name="password"  required>
+    <input  matInput  (keyup)="onKeyPass()" placeholder="your password" #passwordCheck="ngModel" [(ngModel)]="password"  type="password"  name="password"  required>
   </mat-form-field>
   <div *ngIf="passwordCheck?.touched" >
     <div *ngIf="passwordCheck.errors?.required" class="alert alert-danger" >
@@ -23,9 +26,6 @@
     </div>
     <div [hidden]='pinv' class="alert alert-danger" >Password Doesn't Exist</div>
   <br><br>
-  <mat-card-actions>
-      <button  mat-raised-button (click)="login()"  color="primary">Login</button>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <button  mat-raised-button (click)="close()"  color="primary">Cancel</button>
-  </mat-card-actions>
-</mat-card>
+    <button (click)="login()"  type="button" class="btn-primary">Login</button>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </div>
 </div>
