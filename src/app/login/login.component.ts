@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserDetails, User } from '../model';
 import { CircularServiceService } from '../circular-service.service';
 
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   public currentUser: User;
   ninv = true;
   pinv = true;
-  constructor(private router: Router, private circularService: CircularServiceService) { }
+  constructor(private router: Router, private circularService: CircularServiceService, private route: ActivatedRoute) { }
 
   ngOnInit() {
   }

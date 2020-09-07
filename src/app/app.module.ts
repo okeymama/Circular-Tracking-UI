@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule, MatInputModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatDatepickerModule,
@@ -13,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { UploadDataComponent } from './upload-data/upload-data.component';
 import { SearchDataComponent } from './search-data/search-data.component';
 import { CircularServiceService } from './circular-service.service';
+import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
@@ -23,15 +25,23 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminPageComponent,
+    canActivate: [AuthGuard],
     children: [
 
       {
         path: 'upload',
-        component: UploadDataComponent
+        component: UploadDataComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'upload/:edit',
+        component: UploadDataComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'search',
-        component: SearchDataComponent
+        component: SearchDataComponent,
+        canActivate: [AuthGuard],
       },
     ]
 
@@ -71,7 +81,7 @@ const routes: Routes = [
     MatCheckboxModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [CircularServiceService],
+  providers: [CircularServiceService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

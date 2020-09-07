@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { CircularServiceService } from '../circular-service.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
+  @Input() logout: string;
+  constructor(private circularService: CircularServiceService, private router: Router) { }
 
   ngOnInit() {
+
+  }
+
+  logoutFunction() {
+    console.log('in logout function');
+    this.circularService.clientName = undefined;
+    this.router.navigate(['']);
   }
 
 }

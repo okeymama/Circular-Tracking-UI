@@ -1,8 +1,11 @@
-<div class=header>
-  <span class="headerName">Search App</span>
-  <div class="secondDiv">
-   <!-- <div><img class="headerImg" src="assets/header-image.png"></div> -->
-    <!--<div class="welcomeText">Welcome Consultant</div>-->
+<div class="row header">
+  <div class="col-11">
+   <span class="headerName">Search App</span>
   </div>
-</div>
-<router-outlet></router-outlet>
+  <div class="col-1">
+   <!-- <div><img class="headerImg" src="assets/header-image.png"></div> -->
+    <div *ngIf="logout" class="logout" (click)="logoutFunction()">Logout</div>
+  </div>
+ </div>
+
+<!--<router-outlet></router-outlet>-->

@@ -13,6 +13,7 @@
                 <div *ngIf="submitted && f.circularDetail.errors" class="invalid-feedback">
                     <div *ngIf="f.circularDetail.errors.required">Circular Detail is required</div>
                 </div>
+                <div *ngIf="duplicateCheck" class="error-desc">Duplicate Circular Detail</div>
               </div>
             </div>
             <div class="form-row">
@@ -28,12 +29,11 @@
             <div class="form-row">
                 <div class="form-group">
                     <mat-label>Date &nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
-                    <input class="dateInput" matInput [matDatepicker]="picker1" formControlName="date">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                    <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                    <input type="date" id="date" class="form-control" (change)="checkDate()" formControlName="date">
+                    <!--<div *ngIf="submitted && f.date.errors" class="invalid-feedback">
                         <div *ngIf="f.date.errors.required">Date is required</div>
-                    </div>
+                    </div> -->
+                    <div *ngIf="dateCheck" class="error-desc">Date is required</div>
                 </div>
             </div>
 
@@ -48,16 +48,16 @@
             </div>
 
             <div class="form-row">
-            <div  class="form-group">
+            <div  class="form-group" style="display: flex;">
               <label style="margin-right:20px;">Upload File</label>
               <input class="md-button md-raised md-primary" (change)="fileUpload($event)" formControlName="file" id="input-file-id" multiple type="file" />
-              <div *ngIf="submitted && f.file.errors" class="invalid-feedback">
-                  <div *ngIf="f.file.errors.required">File Name is required</div>
-              </div>
+              <div><mat-icon *ngIf="progress" style="margin-top:4px;">check_circle</mat-icon></div>
           </div>
           </div>
+          <div *ngIf="fileCheck" class="error-desc1">File is required</div>
 
         <button type="button" class="btn btn-sm btn-shape outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;" (click)="onSubmit()">Submit</button>
+        <button type="button" class="btn btn-sm btn-shape1 outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;margin-left:30px;" (click)="reset()">Reset</button>
         </form>
     </div>
 </div>

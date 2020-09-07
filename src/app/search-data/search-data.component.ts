@@ -5,45 +5,9 @@ import { CircularDetails } from '../model';
 import { CircularServiceService } from '../circular-service.service';
 import * as fileSaver from 'file-saver';
 import { HttpResponse } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 
 let circularData: CircularDetails[] ;
-//   {
-//     id : 1,
-//     circularDetail : 'detail1',
-//     clientNumber : 'A1',
-//     circularNumber : '1',
-//     date : '29/01/2020',
-//     departmant : 'ABC',
-//     fileName : 'file_1',
-//   },
-//   {
-//     id : 2,
-//     circularDetail : 'detail2',
-//     clientNumber : 'A2',
-//     circularNumber : '2',
-//     date : '20/03/2020',
-//     departmant : 'DEF',
-//     fileName : 'file_2',
-//   },
-//   {
-//     id : 3,
-//     circularDetail : 'detail3',
-//     clientNumber : 'A3',
-//     circularNumber : '3',
-//     date : '04/04/2020',
-//     departmant : 'GHI',
-//     fileName : 'file_3',
-//   },
-//   {
-//     id : 4,
-//     circularDetail : 'detail4',
-//     clientNumber : 'A4',
-//     circularNumber : '4',
-//     date : '29/01/2020',
-//     departmant : 'IJK',
-//     fileName : 'file_4',
-//   }
-// ];
 
 @Component({
   selector: 'app-search-data',
@@ -53,15 +17,22 @@ let circularData: CircularDetails[] ;
 
 export class SearchDataComponent implements OnInit {
   dataSource;
-  displayedColumns: string[] = [ 'id', 'circularDetail', 'circularNumber', 'date', 'departmant', 'fileName' , 'download'];
+  displayedColumns: string[] = [ 'id', 'circularDetail', 'circularNumber', 'date', 'departmant', 'fileName' , 'download', 'edit'];
   //dataSource = new MatTableDataSource<CircularDetails>();
   selection = new SelectionModel<CircularDetails>(true, []);
   searchValue;
   showTable = false;
-  constructor(private circularService: CircularServiceService) { }
+  showHeader = false;
+  constructor(private router: Router, private circularService: CircularServiceService) { }
 
   ngOnInit() {
-    
+    console.log('in search component');
+    console.log(this.router.url);
+    if (this.router.url === '/search') {
+       this.showHeader = true;
+    } else {
+      this.showHeader = false;
+    }
   }
 
   search() {
@@ -115,6 +86,11 @@ export class SearchDataComponent implements OnInit {
      fileSaver.saveAs(blob, row.fileName);
     }), error => console.log('Error downloading the file' + error),
                  () => console.info('File downloaded successfully');
+  }
+
+  edit(row) {
+    console.log(row);
+    this.router.navigate(['admin/upload', 'edit']);
   }
 
 }
