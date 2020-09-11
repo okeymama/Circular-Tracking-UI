@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
 import {Http, ResponseContentType, ResponseType} from '@angular/http';
-import { UserDetails, FileUpload, CircularDetails } from './model';
+import { UserDetails, FileUpload, CircularDetails, EnquiryDetail } from './model';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -66,4 +66,38 @@ export class CircularServiceService {
     console.log(clientName + ' ' + fileName);
       return this.http.get(this.baseURL + 'File/' + clientName + '/' + fileName, { responseType: 'blob' });
   }
+
+  checkDuplicatePOIteamCode(item, itemCode){
+    return this.http.get(this.baseURL + 'App/Duplicate-PurchaseOrder/' + item + '/' + itemCode);
+  }
+
+  savePODetail(poDetail){
+    console.log('Save PO service');
+    console.log(poDetail);
+    return this.http.post(this.baseURL + 'App/PurchaseOrders', poDetail ,  { responseType : 'text'});
+  }
+
+
+  checkDuplicateEnquiry(enquiryNumber){
+    return this.http.get(this.baseURL + 'App/Duplicate-Enquiry/' + enquiryNumber);
+  }
+
+
+  saveEnquiryDetail(enquiryDetail){
+    console.log('Save EnquiryDetail service');
+    console.log(enquiryDetail);
+    return this.http.post(this.baseURL + 'App/Enquiry', enquiryDetail ,  { responseType : 'text'});
+  }
+
+  checkDuplicateCatalog(modelNo){
+    return this.http.get(this.baseURL + 'App/Duplicate-Catalog/' + modelNo);
+  }
+
+
+  saveCatalogDetail(catalogDetail){
+    console.log('Save CatalogDetail service');
+    console.log(catalogDetail);
+    return this.http.post(this.baseURL + 'App/Catalog', catalogDetail ,  { responseType : 'text'});
+  }
+
 }

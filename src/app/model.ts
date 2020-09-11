@@ -27,3 +27,42 @@ export class UserDetails {
     public password: string;
     public userName: string;
 }
+
+
+export class PODetail {
+    public orderNumber:string;
+    public item:string;
+    public make:string;
+    public modelNumber:string;
+    public quantity:number;
+    public rate:string;
+    public remark:string;
+    public date:string;
+    public itemCode:string
+    public customer:string
+    public fileName:string
+}
+
+export class EnquiryDetail {
+    public companyName:string;
+    public personName:string;
+    public mobile:string;
+    public place:string;
+    public enquiryNumber:number;
+    public date:string;
+    public itemDescription:string;
+    public make:string;
+    public status:string
+    public remark:string
+    public fileName:string
+}
+
+export class CatalogDetail{
+    public productName:string;
+    public modelNo:string;
+    public oldModelNo:string;
+    public voltage:string;
+    public range:number;
+    public colour:string;
+    public fileName:string
+}

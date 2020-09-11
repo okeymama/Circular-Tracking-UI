@@ -1,0 +1,85 @@
+<div class="container">
+  <br><br>
+  <h3 class=""><b>Enter the Catalog Details Below</b></h3>
+  <p class="proj-info" >Information:</p>
+  <div class="underline"></div>
+  <br>
+    <div class="card-body">
+        
+      <form [formGroup]="catalogFormGroup" (ngSubmit)="onSubmit()">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" formControlName="productName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.productName.errors }" />
+                <div *ngIf="submitted && f.productName.errors" class="invalid-feedback">
+                    <div *ngIf="f.productName.errors.required">Product Name is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Model Number</label>
+                <input type="text" formControlName="modelNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.modelNo.errors }" />
+                <div *ngIf="submitted && f.modelNo.errors" class="invalid-feedback">
+                    <div *ngIf="f.modelNo.errors.required">Model Number is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Old Model No</label>
+                <input type="text" formControlName="oldModelNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.oldModelNo.errors }" />
+                <div *ngIf="submitted && f.oldModelNo.errors" class="invalid-feedback">
+                    <div *ngIf="f.oldModelNo.errors.required">Old Model No is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Voltage</label>
+                <input type="text" formControlName="voltage" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.voltage.errors }" />
+                <div *ngIf="submitted && f.voltage.errors" class="invalid-feedback">
+                    <div *ngIf="f.voltage.errors.required">Place is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Range</label>
+                <input type="text" formControlName="range" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.range.errors }" />
+                <div *ngIf="submitted && f.range.errors" class="invalid-feedback">
+                    <div *ngIf="f.range.errors.required">Range is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Colour</label>
+                <input type="text" formControlName="colour" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.colour.errors }" />
+                <div *ngIf="submitted && f.colour.errors" class="invalid-feedback">
+                    <div *ngIf="f.colour.errors.required">Colour is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div  class="form-group" style="display: flex;">
+                <label style="margin-right:20px;">Upload File</label>
+                <input class="md-button md-raised md-primary" (change)="fileUpload($event)" formControlName="file" id="input-file-id" multiple type="file" />
+              <div><mat-icon *ngIf="progress" style="margin-top:4px;">check_circle</mat-icon></div>
+              </div>
+            </div>
+
+          <div *ngIf="fileCheck" class="error-desc1">File is required</div>
+
+        <button type="button" class="btn btn-sm btn-shape outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;" (click)="onSubmit()">Submit</button>
+        <button type="button" class="btn btn-sm btn-shape1 outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;margin-left:30px;" (click)="reset()">Reset</button>
+      </form>
+    </div>
+</div>

@@ -15,6 +15,9 @@ import { UploadDataComponent } from './upload-data/upload-data.component';
 import { SearchDataComponent } from './search-data/search-data.component';
 import { CircularServiceService } from './circular-service.service';
 import { AuthGuard } from './auth.guard';
+import { CatUploadDataComponent } from './cat-upload-data/cat-upload-data.component';
+import { EnquiryUploadDataComponent } from './enquiry-upload-data/enquiry-upload-data.component';
+import { PoUploadDataComponent } from './po-upload-data/po-upload-data.component';
 
 
 const routes: Routes = [
@@ -43,6 +46,21 @@ const routes: Routes = [
         component: SearchDataComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path: 'poUpload',
+        component: PoUploadDataComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'enquiry',
+        component: EnquiryUploadDataComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'catalog',
+        component: CatUploadDataComponent,
+        canActivate: [AuthGuard],
+      },
     ]
 
   },
@@ -50,7 +68,10 @@ const routes: Routes = [
     path: 'search',
     component: SearchDataComponent
   },
-
+  {
+    path: 'poUploadData',
+    component: PoUploadDataComponent
+  }
 ];
 
 @NgModule({
@@ -60,7 +81,10 @@ const routes: Routes = [
     AdminPageComponent,
     HeaderComponent,
     UploadDataComponent,
-    SearchDataComponent
+    SearchDataComponent,
+    CatUploadDataComponent,
+    EnquiryUploadDataComponent,
+    PoUploadDataComponent
   ],
   imports: [
     BrowserModule,
