@@ -1,0 +1,124 @@
+<div class="container">
+  <br><br>
+  <h3 class=""><b>Enter the Enquiry Details Below</b></h3>
+  <p class="proj-info" >Information:</p>
+  <div class="underline"></div>
+  <br>
+    <div class="card-body">
+        
+      <form [formGroup]="enquiryFormGroup" (ngSubmit)="onSubmit()">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label>Company Namer</label>
+                <input type="text" formControlName="companyName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />
+                <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
+                    <div *ngIf="f.companyName.errors.required">Company Name is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Person Name</label>
+                <input type="text" formControlName="personName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.personName.errors }" />
+                <div *ngIf="submitted && f.personName.errors" class="invalid-feedback">
+                    <div *ngIf="f.personName.errors.required">Person Name is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Mobile</label>
+                <input type="text" formControlName="mobile" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" />
+                <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                    <div *ngIf="f.mobile.errors.required">Mobile is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Place</label>
+                <input type="text" formControlName="place" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.place.errors }" />
+                <div *ngIf="submitted && f.place.errors" class="invalid-feedback">
+                    <div *ngIf="f.place.errors.required">Place is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Enquiry Number</label>
+                <input type="text" formControlName="enquiryNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.enquiryNumber.errors }" />
+                <div *ngIf="submitted && f.enquiryNumber.errors" class="invalid-feedback">
+                    <div *ngIf="f.enquiryNumber.errors.required">Enquiry Number is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                  <mat-label>Date &nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
+                  <input type="date" id="date" class="form-control" (change)="checkDate()" formControlName="date">
+                  <div *ngIf="dateCheck" class="error-desc">Date is required</div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Item Description</label>
+                <input type="text" formControlName="itemDescription" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.itemDescription.errors }" />
+                <div *ngIf="submitted && f.itemDescription.errors" class="invalid-feedback">
+                    <div *ngIf="f.itemDescription.errors.required">Item Description is required</div>
+                </div>
+              </div>
+            </div>
+
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Make</label>
+              <input type="text" formControlName="make" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.make.errors }" />
+              <div *ngIf="submitted && f.make.errors" class="invalid-feedback">
+                  <div *ngIf="f.make.errors.required">Make is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Status</label>
+              <input type="text" formControlName="status" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.status.errors }" />
+              <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                  <div *ngIf="f.status.errors.required">Status is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Remark</label>
+              <input type="text" formControlName="remark" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.remark.errors }" />
+              <div *ngIf="submitted && f.remark.errors" class="invalid-feedback">
+                  <div *ngIf="f.remark.errors.required">Remark is required</div>
+              </div>
+            </div>
+          </div>
+
+            <div class="form-row">
+              <div  class="form-group" style="display: flex;">
+                <label style="margin-right:20px;">Upload File</label>
+                <input class="md-button md-raised md-primary" (change)="fileUpload($event)" formControlName="file" id="input-file-id" multiple type="file" />
+              <div><mat-icon *ngIf="progress" style="margin-top:4px;">check_circle</mat-icon></div>
+              </div>
+            </div>
+
+          <div *ngIf="fileCheck" class="error-desc1">File is required</div>
+
+        <button type="button" class="btn btn-sm btn-shape outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;" (click)="onSubmit()">Submit</button>
+        <button type="button" class="btn btn-sm btn-shape1 outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;margin-left:30px;" (click)="reset()">Reset</button>
+      </form>
+    </div>
+</div>

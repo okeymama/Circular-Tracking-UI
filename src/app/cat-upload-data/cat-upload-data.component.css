@@ -1,0 +1,96 @@
+.container {
+    padding-left: 320px;
+    justify-content: center;
+}
+
+.underline {
+    width: 120px;
+    height: 0px;
+    border: 2px solid #65BA55;
+    opacity: 1;
+}
+
+p.proj-info {
+    font-size:13px;
+    font-weight: 500;
+    margin:0px;
+    margin-bottom: 0px !important;
+}
+
+.card-body {
+    padding:0px;
+}
+
+label {
+    text-align: left;
+    font: Bold 14px/33px Roboto;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    margin-bottom: 0px;
+    margin-left:6px;
+}
+
+mat-label {
+    text-align: left;
+    font: Bold 14px/33px Roboto;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    margin-bottom: 0px;
+    margin-left:6px;
+}
+
+.form-group {
+    width: 500px;
+}
+
+.form-group.col-3 {
+    padding-left: 0px;
+}
+
+.form-control {
+    background: #EDEDED 0% 0% no-repeat padding-box;
+}
+
+input.dateInput {
+    width: 80%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s;
+    background: #EDEDED 0% 0% no-repeat padding-box;
+}
+
+.btn-shape {
+
+    border-radius: 4rem;
+    cursor: pointer;
+    background-color: #86BC25;
+    font-size:14px;
+  }
+
+  .btn-shape1 {
+
+    border-radius: 4rem;
+    cursor: pointer;
+    background-color: grey;
+    font-size:14px;
+  }
+
+.error-desc {
+    font-size: 12.8px;
+    color: #dc3545;
+}
+
+.error-desc1 {
+    font-size: 12.8px;
+    color: #dc3545;
+    height: 18px;
+}

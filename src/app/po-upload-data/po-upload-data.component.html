@@ -1,0 +1,124 @@
+<div class="container">
+  <br><br>
+  <h3 class=""><b>Enter the Purchase Order Details Below</b></h3>
+  <p class="proj-info" >Information:</p>
+  <div class="underline"></div>
+  <br>
+    <div class="card-body">
+        
+      <form [formGroup]="poUploadFormGroup" (ngSubmit)="onSubmit()">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label>Order Number</label>
+                <input type="text" formControlName="orderNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.orderNumber.errors }" />
+                <div *ngIf="submitted && f.orderNumber.errors" class="invalid-feedback">
+                    <div *ngIf="f.orderNumber.errors.required">Order Number is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Item</label>
+                <input type="text" formControlName="item" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.item.errors }" />
+                <div *ngIf="submitted && f.item.errors" class="invalid-feedback">
+                    <div *ngIf="f.item.errors.required">Item is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Make</label>
+                <input type="text" formControlName="make" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.make.errors }" />
+                <div *ngIf="submitted && f.make.errors" class="invalid-feedback">
+                    <div *ngIf="f.make.errors.required">Make is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Model Number</label>
+                <input type="text" formControlName="modelNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.modelNumber.errors }" />
+                <div *ngIf="submitted && f.modelNumber.errors" class="invalid-feedback">
+                    <div *ngIf="f.modelNumber.errors.required">Model Number is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Quantity</label>
+                <input type="text" formControlName="quantity" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }" />
+                <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+                    <div *ngIf="f.quantity.errors.required">Quantity is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Rate</label>
+                <input type="text" formControlName="rate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rate.errors }" />
+                <div *ngIf="submitted && f.rate.errors" class="invalid-feedback">
+                    <div *ngIf="f.rate.errors.required">Rate is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Remark</label>
+                <input type="text" formControlName="remark" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.remark.errors }" />
+                <div *ngIf="submitted && f.remark.errors" class="invalid-feedback">
+                    <div *ngIf="f.remark.errors.required">Remark is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                  <mat-label>Date &nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
+                  <input type="date" id="date" class="form-control" (change)="checkDate()" formControlName="date">
+                  <div *ngIf="dateCheck" class="error-desc">Date is required</div>
+              </div>
+            </div>
+
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Item Code</label>
+              <input type="text" formControlName="itemCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.itemCode.errors }" />
+              <div *ngIf="submitted && f.itemCode.errors" class="invalid-feedback">
+                  <div *ngIf="f.itemCode.errors.required">Item Code is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Customer</label>
+              <input type="text" formControlName="customer" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.customer.errors }" />
+              <div *ngIf="submitted && f.customer.errors" class="invalid-feedback">
+                  <div *ngIf="f.customer.errors.required">Customer is required</div>
+              </div>
+            </div>
+          </div>
+
+            <div class="form-row">
+              <div  class="form-group" style="display: flex;">
+                <label style="margin-right:20px;">Upload File</label>
+                <input class="md-button md-raised md-primary" (change)="fileUpload($event)" formControlName="file" id="input-file-id" multiple type="file" />
+              <div><mat-icon *ngIf="progress" style="margin-top:4px;">check_circle</mat-icon></div>
+              </div>
+            </div>
+
+          <div *ngIf="fileCheck" class="error-desc1">File is required</div>
+
+        <button type="button" class="btn btn-sm btn-shape outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;" (click)="onSubmit()">Submit</button>
+        <button type="button" class="btn btn-sm btn-shape1 outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;margin-left:30px;" (click)="reset()">Reset</button>
+      </form>
+    </div>
+</div>
