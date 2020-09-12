@@ -23,6 +23,8 @@ export class UploadDataComponent implements OnInit {
   progress = false;
   fileCheck = false;
   dateCheck = false;
+  editFileCheck = false;
+  edit = false;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private circularService: CircularServiceService,
     private route: ActivatedRoute) { }
@@ -37,12 +39,22 @@ export class UploadDataComponent implements OnInit {
       department: ['', [Validators.required ]],
       file : ['', [Validators.required]],
     });
-
     this.route.params.subscribe(params => {
       console.log(params);
-      if (params['edit']) { 
-        this.fileUploadFormGroup.setValue({circularDetail: 'yess', circularNumber : 'yess',date:'2020-08-31T18:30:00.000Z',department:'yess',file:'yes' });
+      if (params['edit']) {
+        this.editFileCheck = true;
+        this.edit = true;
+        const editRowVal = this.circularService.editRow;
+        console.log(editRowVal);
+        const d = editRowVal.date;
+        console.log(d.substring(0, d.length - 1));
+        console.log(d);
+        const dateFormat = new Date(d.substring(0, d.length - 1));
+        console.log(dateFormat);
+        this.fileUploadFormGroup.setValue({circularDetail: editRowVal.circularDetail,
+          circularNumber : editRowVal.circularNumber,date:dateFormat,department:editRowVal.departmant,file:editRowVal.fileName });
         console.log(this.fileUploadFormGroup.value);
+        this.fileUploadFormGroup.get('circularNumber').disable();
       }
     });
   }
@@ -65,30 +77,48 @@ export class UploadDataComponent implements OnInit {
     console.log(this.fileUploadFormGroup.value.circularDetail);
     this.circular = new CircularDetails();
     this.circular.circularDetail = this.fileUploadFormGroup.value.circularDetail;
-    this.circular.circularNumber = this.fileUploadFormGroup.value.circularNumber;
+    if (!this.edit) {
+      this.circular.circularNumber = this.fileUploadFormGroup.value.circularNumber;
+    } else {
+      this.circular.circularNumber = this.circularService.editRow.circularNumber;
+    }
     this.circular.date = this.fileUploadFormGroup.value.date;
     this.circular.departmant = this.fileUploadFormGroup.value.department;
     this.circular.clientNumber = this.circularService.clientName;
     this.circular.fileName = this.fileId;
     console.log(this.circular);
+    console.log('check circular number');
     console.log(this.circular.clientNumber + ' ' + this.circular.circularNumber);
-    this.circularService.checkDuplicate(this.circular.clientNumber, this.circular.circularNumber).subscribe((result1) => {
-      console.log(result1);
-      if (this.circular.fileName === undefined || this.circular.fileName === '') {
-        console.log('check file upload')
-      }
-      if (!result1) {
-          this.duplicateCheck = false;
-          this.circularService.saveCircular(this.circular).subscribe((result) => {
-            console.log(result);
-            this.submitted = false;
-          this.reset();
-        });
-       } else {
-         console.log('in duplicate true');
-         this.duplicateCheck = true;
-       }
-  });
+    if (!this.edit) {
+      this.checkAndSaveData();
+    } else {
+      this.saveCircular();
+    }
+
+}
+
+checkAndSaveData() {
+  this.circularService.checkDuplicate(this.circular.clientNumber, this.circular.circularNumber).subscribe((result1) => {
+    console.log(result1);
+    if (this.circular.fileName === undefined || this.circular.fileName === '') {
+      console.log('check file upload')
+    }
+    if (!result1) {
+        this.saveCircular();
+     } else {
+       console.log('in duplicate true');
+       this.duplicateCheck = true;
+     }
+});
+}
+
+saveCircular() {
+      this.duplicateCheck = false;
+      this.circularService.saveCircular(this.circular).subscribe((result) => {
+        console.log(result);
+        this.submitted = false;
+        this.reset();
+      });
 }
 
 fileUpload(event) {
@@ -105,10 +135,6 @@ fileUpload(event) {
   console.log(this.uploadFileObj.clientName);
   console.log(this.uploadFileObj.file);
   this.circularService.fileUpload(this.uploadFileObj).subscribe((result) => {
-    // if (HttpEventType.UploadProgress) {
-    //   this.progress = Math.round(event.loaded / event.total * 100);
-    //   console.log(`Uploaded! ${this.progress}%`);
-    // }
     this.progress = true;
     console.log(result);
     this.fileId  = result;
@@ -131,7 +157,16 @@ fileUpload(event) {
     this.dateCheck = false;
     this.progress = false;
     this.duplicateCheck = false;
+    this.editFileCheck = false;
     this.fileUploadFormGroup.reset();
+  }
+
+  changeFile() {
+    this.editFileCheck = false;
+    this.fileUploadFormGroup.controls['file'].setValue('');
+    // this.fileUploadFormGroup.reset({
+    //   file : ['', [Validators.required]]
+    // });
   }
 
 }

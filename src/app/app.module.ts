@@ -18,6 +18,7 @@ import { AuthGuard } from './auth.guard';
 import { CatUploadDataComponent } from './cat-upload-data/cat-upload-data.component';
 import { EnquiryUploadDataComponent } from './enquiry-upload-data/enquiry-upload-data.component';
 import { PoUploadDataComponent } from './po-upload-data/po-upload-data.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 const routes: Routes = [
@@ -84,7 +85,8 @@ const routes: Routes = [
     SearchDataComponent,
     CatUploadDataComponent,
     EnquiryUploadDataComponent,
-    PoUploadDataComponent
+    PoUploadDataComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

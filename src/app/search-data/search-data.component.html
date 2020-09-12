@@ -1,7 +1,21 @@
 <app-header [logout]="true" *ngIf="showHeader"></app-header>
+  
+  <div class="dropDown">
+      <label>Select the type</label>
+      <select [(ngModel)]="type" class="form-control" (change)="typeSelected($event)" placeholder="Select the type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+          <option value=""></option>
+          <option value="Circular">Circular</option>
+          <option value="PoSearch">PO Search</option>
+          <option value="Enquiry">Enquiry</option>
+      </select>
+      <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+          <div *ngIf="f.type.errors.required">Select Type</div>
+      </div>
+  </div>
+
 <form class="example-form">
 
-  <mat-form-field class="example-full-width">
+  <mat-form-field class="example-full-width" *ngIf="showSearch">
    <!-- <span matPrefix>+1 &nbsp;</span> -->
     <input type="text" (keyup.enter)="search()" matInput placeholder="search" name="search" [(ngModel)]="searchValue">
     <mat-icon matSuffix (click)="search()">search</mat-icon>

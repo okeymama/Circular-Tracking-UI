@@ -11,6 +11,7 @@ export class CircularServiceService {
 
   private _clientName;
   private baseURL = 'http://localhost:8080/';
+  private _editRow: CircularDetails;
   constructor(private http: HttpClient) { }
 
   get clientName(): string {
@@ -19,6 +20,14 @@ export class CircularServiceService {
 
   set clientName(newName: string) {
     this._clientName = newName;
+  }
+
+  get editRow(): CircularDetails {
+    return this._editRow;
+   }
+
+  set editRow(row: CircularDetails) {
+    this._editRow = row;
   }
 
   fileUpload(fileObj: FileUpload): Observable<any> {
