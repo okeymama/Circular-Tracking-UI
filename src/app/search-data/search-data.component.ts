@@ -23,6 +23,10 @@ export class SearchDataComponent implements OnInit {
   searchValue;
   showTable = false;
   showHeader = false;
+  showSearch = false;
+  type;
+
+
   constructor(private router: Router, private circularService: CircularServiceService) { }
 
   ngOnInit() {
@@ -90,7 +94,20 @@ export class SearchDataComponent implements OnInit {
 
   edit(row) {
     console.log(row);
+    this.circularService.editRow  = row;
     this.router.navigate(['admin/upload', 'edit']);
+  }
+
+  typeSelected(e) {
+    console.log(e.target.value);
+    this.searchValue = '';
+    if(this.type === null || this.type === undefined || this.type === '') {
+      this.showSearch = false;
+      this.showTable = false;
+    } else {
+      this.showSearch = true;
+      this.showTable = false;
+    }
   }
 
 }
