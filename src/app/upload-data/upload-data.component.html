@@ -6,6 +6,8 @@
   <br>
     <div class="card-body">
         <form [formGroup]="fileUploadFormGroup" (ngSubmit)="onSubmit()">
+          <div style="display: flex;">
+          <div class="sub-div-1">
             <div class="form-row">
               <div class="form-group">
                 <label>Circular Detail</label>
@@ -28,7 +30,7 @@
 
             <div class="form-row">
                 <div class="form-group">
-                  <mat-label>Date &nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
+                  <mat-label>Date &nbsp;&nbsp;&nbsp;&nbsp;</mat-label><br>
                     <input class="dateInput" matInput [matDatepicker]="picker1" formControlName="date">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker [startAt]="date" #picker1></mat-datepicker>
@@ -40,7 +42,8 @@
                     <div *ngIf="dateCheck" class="error-desc">Date is required</div>
                 </div>
             </div>
-
+          </div>
+          <div class="sub-div-2"> 
             <div class="form-row"> 
             <div  class="form-group">
                 <label>Department</label>
@@ -65,13 +68,15 @@
               <label style="margin-right:20px;">Uploaded File</label>
               <input type="text" formControlName="file" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.file.errors }">
               <button for="files" class="upload-btn-1" (click)="changeFile()">Upload new File</button>
-              <!--<input class="md-button md-raised md-primary" style="visibility:hidden;" (change)="fileUpload($event)" id="input-file-id" multiple type="file" />-->
-              <div><mat-icon *ngIf="progress" style="margin-top:4px;">check_circle</mat-icon></div>
           </div>
           </div>
-
-        <button type="button" class="btn btn-sm btn-shape outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;" (click)="onSubmit()">Submit</button>
-        <button type="button" class="btn btn-sm btn-shape1 outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;margin-left:30px;" (click)="reset()">Reset</button>
+          
+        </div> 
+      </div>
         </form>
+      <div style="margin-left:420px;display: flex">
+        <button type="button" class="btn btn-sm btn-shape outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;margin-left:320px;" (click)="onSubmit()">Submit</button>
+        <button type="button" class="btn btn-sm btn-shape1 outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;margin-left:30px;" (click)="reset()">Reset</button>
+      </div>
     </div>
 </div>

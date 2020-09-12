@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FileUpload,CatalogDetail } from '../model';
+import { FileUpload, CatalogDetail } from '../model';
 import { CircularServiceService } from '../circular-service.service';
 
 @Component({
@@ -19,13 +19,16 @@ export class CatUploadDataComponent implements OnInit {
     submitted = false;
     public currentFileUpload: File;
     public selectedFiles: FileList;
-    catalogDetail : CatalogDetail;
+    catalogDetail: CatalogDetail;
     fileId;
     uploadFileObj: FileUpload;
     duplicateCheck = false;
     progress = false;
     fileCheck = false;
     dateCheck = false;
+    editFileCheck = false;
+    edit = false;
+    editRowVal: CatalogDetail;
 
     ngOnInit() {
       this.catalogFormGroup = this.formBuilder.group({
@@ -37,6 +40,21 @@ export class CatUploadDataComponent implements OnInit {
         colour  : ['', [Validators.required]],
         file : ['', [Validators.required]],
       });
+      this.route.params.subscribe(params => {
+        console.log(params);
+        if (params['editCatalog']) {
+          this.editFileCheck = true;
+          this.edit = true;
+          this.editRowVal = this.circularService.editCatalogRow;
+          console.log(this.editRowVal);
+          this.catalogFormGroup.setValue({productName: this.editRowVal.productName,modelNo : this.editRowVal.modelNo,
+            oldModelNo: this.editRowVal.oldModelNo, voltage:this.editRowVal.voltage,range:this.editRowVal.range,
+            colour:this.editRowVal.colour, file:this.editRowVal.fileName });
+          this.fileId = this.editRowVal.fileName;
+          console.log(this.catalogFormGroup.value);
+          this.catalogFormGroup.get('modelNo').disable();
+        }
+      });
     }
 
     get f() { return this.catalogFormGroup.controls; }
@@ -47,45 +65,61 @@ export class CatUploadDataComponent implements OnInit {
       this.submitted = true;
       // stop here if form is invalid
       if (this.catalogFormGroup.invalid) {
-        const d = this.catalogFormGroup.value.date;
         console.log(this.fileId);
         this.fileCheck = this.fileId === undefined ? true : false;
-        this.dateCheck = (d === undefined || d === '' || d === null) ? true : false;
           return;
       }
-  
       console.log('success');
       console.log(this.catalogFormGroup.value);
       console.log(this.catalogFormGroup.value.item);
   
       this.catalogDetail = new CatalogDetail();
       this.catalogDetail.productName = this.catalogFormGroup.value.productName;
-      this.catalogDetail.modelNo = this.catalogFormGroup.value.modelNo;
+      if (!this.edit) {
+        this.catalogDetail.modelNo = this.catalogFormGroup.value.modelNo;
+      } else {
+        this.catalogDetail.modelNo = this.editRowVal.modelNo;
+        // this.catalogDetail.id = this.editRowVal.id;
+      }
+
       this.catalogDetail.oldModelNo = this.catalogFormGroup.value.oldModelNo;
       this.catalogDetail.voltage = this.catalogFormGroup.value.voltage;
       this.catalogDetail.range = this.catalogFormGroup.value.range;
       this.catalogDetail.colour = this.catalogFormGroup.value.colour;
       this.catalogDetail.fileName = this.fileId;
-      
+
       console.log(this.catalogDetail);
       console.log(this.catalogDetail.productName + ' ' + this.catalogDetail.modelNo);
-          this.circularService.checkDuplicateCatalog(this.catalogDetail.modelNo).subscribe((result1) => {
-            console.log(result1);
-            if (this.catalogDetail.fileName === undefined || this.catalogDetail.fileName === '') {
-              console.log('check file upload')
-            }
-            if (!result1) {
-                this.duplicateCheck = false;
-                this.circularService.saveCatalogDetail(this.catalogDetail).subscribe((result) => {
-                  console.log(result);
-                  this.submitted = false;
-                this.reset();
-              });
-            } else {
-              console.log('in duplicate true');
-              this.duplicateCheck = true;
-            }
-        });
+      if (!this.edit) {
+        this.checkAndSaveData();
+      } else {
+        this.saveCatalog();
+      }
+    }
+
+
+    checkAndSaveData() {
+      this.circularService.checkDuplicateCatalog(this.catalogDetail.modelNo).subscribe((result1) => {
+        console.log(result1);
+        if (this.catalogDetail.fileName === undefined || this.catalogDetail.fileName === '') {
+          console.log('check file upload')
+        }
+        if (!result1) {
+          this.saveCatalog();
+        } else {
+          console.log('in duplicate true');
+          this.duplicateCheck = true;
+        }
+    });
+    }
+
+    saveCatalog() {
+      this.duplicateCheck = false;
+      this.circularService.saveCatalogDetail(this.catalogDetail).subscribe((result) => {
+        console.log(result);
+        this.submitted = false;
+      this.reset();
+    });
     }
 
 
@@ -96,6 +130,8 @@ export class CatUploadDataComponent implements OnInit {
       this.dateCheck = false;
       this.progress = false;
       this.duplicateCheck = false;
+      this.editFileCheck = false;
+      this.edit = false;
       this.catalogFormGroup.reset();
     }
   
@@ -119,5 +155,8 @@ export class CatUploadDataComponent implements OnInit {
        });
       }
 
-
+  changeFile() {
+      this.editFileCheck = false;
+      this.catalogFormGroup.controls['file'].setValue('');
+  }
 }

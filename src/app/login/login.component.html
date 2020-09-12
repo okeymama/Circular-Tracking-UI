@@ -6,19 +6,19 @@
 <br>
 <h3> Login</h3>
 <hr class="divider">
-  <mat-form-field>
+ <div>
     <i class="fa fa-user"></i>
-    <input  matInput (keyup)="onKeyUsername()" placeholder="Username" #usernameCheck="ngModel" [(ngModel)]="username"  type="text" name="username"  required>
-  </mat-form-field>
+    <input  (keyup)="onKeyUsername()" class="form-control" placeholder="Username" #usernameCheck="ngModel" [(ngModel)]="username"  type="text" name="username"  required>
+  </div>
   <div *ngIf="usernameCheck?.touched" >
     <div *ngIf="usernameCheck.errors?.required" class="alert alert-danger" >
       Username Required
       </div>
     </div>
     <div [hidden]='ninv' class="alert alert-danger" >Username Doesn't Exist</div>
-    <mat-form-field>
-    <input  matInput  (keyup)="onKeyPass()" placeholder="your password" #passwordCheck="ngModel" [(ngModel)]="password"  type="password"  name="password"  required>
-  </mat-form-field>
+  <div>
+    <input (keyup)="onKeyPass()" class="form-control" placeholder="Password" #passwordCheck="ngModel" [(ngModel)]="password"  type="password"  name="password"  required>
+  </div>
   <div *ngIf="passwordCheck?.touched" >
     <div *ngIf="passwordCheck.errors?.required" class="alert alert-danger" >
       Password Required

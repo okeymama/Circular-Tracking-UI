@@ -25,6 +25,7 @@ export class UploadDataComponent implements OnInit {
   dateCheck = false;
   editFileCheck = false;
   edit = false;
+  editRowVal: CircularDetails;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private circularService: CircularServiceService,
     private route: ActivatedRoute) { }
@@ -41,19 +42,20 @@ export class UploadDataComponent implements OnInit {
     });
     this.route.params.subscribe(params => {
       console.log(params);
-      if (params['edit']) {
+      if (params['editCircular']) {
         this.editFileCheck = true;
         this.edit = true;
-        const editRowVal = this.circularService.editRow;
-        console.log(editRowVal);
-        const d = editRowVal.date;
+        this.editRowVal = this.circularService.editRow;
+        console.log(this.editRowVal);
+        const d = this.editRowVal.date;
         console.log(d.substring(0, d.length - 1));
         console.log(d);
         const dateFormat = new Date(d.substring(0, d.length - 1));
         console.log(dateFormat);
-        this.fileUploadFormGroup.setValue({circularDetail: editRowVal.circularDetail,
-          circularNumber : editRowVal.circularNumber,date:dateFormat,department:editRowVal.departmant,file:editRowVal.fileName });
+        this.fileUploadFormGroup.setValue({circularDetail: this.editRowVal.circularDetail,circularNumber : this.editRowVal.circularNumber,
+          date:dateFormat,department:this.editRowVal.departmant,file:this.editRowVal.fileName });
         console.log(this.fileUploadFormGroup.value);
+        this.fileId = this.editRowVal.fileName;
         this.fileUploadFormGroup.get('circularNumber').disable();
       }
     });
@@ -80,12 +82,14 @@ export class UploadDataComponent implements OnInit {
     if (!this.edit) {
       this.circular.circularNumber = this.fileUploadFormGroup.value.circularNumber;
     } else {
-      this.circular.circularNumber = this.circularService.editRow.circularNumber;
+      this.circular.circularNumber = this.editRowVal.circularNumber;
+      this.circular.id = this.editRowVal.id;
     }
     this.circular.date = this.fileUploadFormGroup.value.date;
     this.circular.departmant = this.fileUploadFormGroup.value.department;
     this.circular.clientNumber = this.circularService.clientName;
     this.circular.fileName = this.fileId;
+
     console.log(this.circular);
     console.log('check circular number');
     console.log(this.circular.clientNumber + ' ' + this.circular.circularNumber);
@@ -114,6 +118,7 @@ checkAndSaveData() {
 
 saveCircular() {
       this.duplicateCheck = false;
+      console.log(this.circular.id);
       this.circularService.saveCircular(this.circular).subscribe((result) => {
         console.log(result);
         this.submitted = false;
@@ -158,15 +163,13 @@ fileUpload(event) {
     this.progress = false;
     this.duplicateCheck = false;
     this.editFileCheck = false;
+    this.edit = false;
     this.fileUploadFormGroup.reset();
   }
 
   changeFile() {
     this.editFileCheck = false;
     this.fileUploadFormGroup.controls['file'].setValue('');
-    // this.fileUploadFormGroup.reset({
-    //   file : ['', [Validators.required]]
-    // });
   }
 
 }
