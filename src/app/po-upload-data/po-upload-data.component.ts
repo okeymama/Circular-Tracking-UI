@@ -63,11 +63,12 @@ export class PoUploadDataComponent implements OnInit {
     console.log(this.poUploadFormGroup.value.item);
 
     this.poDetail = new PODetail();
-    this.poDetail.orderNumber = this.poUploadFormGroup.value.orderNumber;
+    this.poDetail.orderNo = this.poUploadFormGroup.value.orderNumber;
     this.poDetail.item = this.poUploadFormGroup.value.item;
     this.poDetail.make = this.poUploadFormGroup.value.make;
-    this.poDetail.modelNumber = this.poUploadFormGroup.value.modelNumber;
+    this.poDetail.modelNo = this.poUploadFormGroup.value.modelNumber;
     this.poDetail.quantity = this.poUploadFormGroup.value.quantity;
+    this.poDetail.rate = this.poUploadFormGroup.value.rate;
     this.poDetail.remark = this.poUploadFormGroup.value.remark;
     this.poDetail.date = this.poUploadFormGroup.value.date;
     this.poDetail.itemCode = this.poUploadFormGroup.value.itemCode;
@@ -76,7 +77,7 @@ export class PoUploadDataComponent implements OnInit {
 
     console.log(this.poDetail);
     console.log(this.poDetail.item + ' ' + this.poDetail.itemCode);
-        this.circularService.checkDuplicatePOIteamCode(this.poDetail.item, this.poDetail.itemCode).subscribe((result1) => {
+        this.circularService.checkDuplicatePOIteamCode( this.poDetail.itemCode).subscribe((result1) => {
           console.log(result1);
           if (this.poDetail.fileName === undefined || this.poDetail.fileName === '') {
             console.log('check file upload')
@@ -128,10 +129,6 @@ export class PoUploadDataComponent implements OnInit {
     console.log(this.uploadFileObj.clientName);
     console.log(this.uploadFileObj.file);
     this.circularService.fileUpload(this.uploadFileObj).subscribe((result) => {
-      // if (HttpEventType.UploadProgress) {
-      //   this.progress = Math.round(event.loaded / event.total * 100);
-      //   console.log(`Uploaded! ${this.progress}%`);
-      // }
       this.progress = true;
       console.log(result);
       this.fileId  = result;

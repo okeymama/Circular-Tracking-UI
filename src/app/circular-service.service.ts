@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
 import {Http, ResponseContentType, ResponseType} from '@angular/http';
-import { UserDetails, FileUpload, CircularDetails, EnquiryDetail } from './model';
+import { UserDetails, FileUpload, CircularDetails, EnquiryDetail, CatalogDetail } from './model';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -76,8 +76,8 @@ export class CircularServiceService {
       return this.http.get(this.baseURL + 'File/' + clientName + '/' + fileName, { responseType: 'blob' });
   }
 
-  checkDuplicatePOIteamCode(item, itemCode){
-    return this.http.get(this.baseURL + 'App/Duplicate-PurchaseOrder/' + item + '/' + itemCode);
+  checkDuplicatePOIteamCode(itemCode){
+    return this.http.get(this.baseURL + 'App/Duplicate-PurchaseOrder/' + itemCode);
   }
 
   savePODetail(poDetail){

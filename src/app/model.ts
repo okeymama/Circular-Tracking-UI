@@ -30,11 +30,11 @@ export class UserDetails {
 
 
 export class PODetail {
-    public orderNumber:string;
+    public orderNo:string;
     public item:string;
     public make:string;
-    public modelNumber:string;
-    public quantity:number;
+    public modelNo:string;
+    public quantity:string;
     public rate:string;
     public remark:string;
     public date:string;
@@ -48,7 +48,7 @@ export class EnquiryDetail {
     public personName:string;
     public mobile:string;
     public place:string;
-    public enquiryNumber:number;
+    public enquiryNumber:string;
     public date:string;
     public itemDescription:string;
     public make:string;
