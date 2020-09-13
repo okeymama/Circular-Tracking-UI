@@ -1,5 +1,5 @@
 .container {
-    padding-left: 320px;
+    padding-left: 0px;
     justify-content: center;
 }
 
@@ -54,7 +54,7 @@ mat-label {
 }
 
 input.dateInput {
-    width: 80%;
+    width: 92%;
     height: calc(1.5em + .75rem + 2px);
     padding: .375rem .75rem;
     font-size: 1rem;
@@ -97,4 +97,12 @@ input.dateInput {
 
 .upload-btn-1{
     margin-top: 10px;
+}
+
+.sub-div-1 {
+
+}
+
+.sub-div-2 {
+    margin-left:80px;
 }

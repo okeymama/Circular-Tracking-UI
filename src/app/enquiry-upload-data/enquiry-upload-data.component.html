@@ -7,7 +7,8 @@
     <div class="card-body">
         
       <form [formGroup]="enquiryFormGroup" (ngSubmit)="onSubmit()">
-            
+        <div style="display: flex;">
+          <div class="sub-div-1"> 
             <div class="form-row">
               <div class="form-group">
                 <label>Company Namer</label>
@@ -55,13 +56,17 @@
                 <div *ngIf="submitted && f.enquiryNumber.errors" class="invalid-feedback">
                     <div *ngIf="f.enquiryNumber.errors.required">Enquiry Number is required</div>
                 </div>
+                <div *ngIf="duplicateCheck" class="error-desc">Duplicate Enquiry Number</div>
               </div>
             </div>
-
+          </div>
+          <div class="sub-div-2">   
             <div class="form-row">
               <div class="form-group">
-                  <mat-label>Date &nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
-                  <input type="date" id="date" class="form-control" (change)="checkDate()" formControlName="date">
+                <mat-label>Date &nbsp;&nbsp;&nbsp;&nbsp;</mat-label><br>
+                <input class="dateInput" matInput [matDatepicker]="picker1" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker [startAt]="date" #picker1></mat-datepicker>
                   <div *ngIf="dateCheck" class="error-desc">Date is required</div>
               </div>
             </div>
@@ -107,7 +112,7 @@
             </div>
           </div>
 
-            <div class="form-row">
+            <div *ngIf="!editFileCheck" class="form-row">
               <div  class="form-group" style="display: flex;">
                 <label style="margin-right:20px;">Upload File</label>
                 <input class="md-button md-raised md-primary" (change)="fileUpload($event)" formControlName="file" id="input-file-id" multiple type="file" />
@@ -117,8 +122,21 @@
 
           <div *ngIf="fileCheck" class="error-desc1">File is required</div>
 
+          <div *ngIf="editFileCheck" class="form-row">
+            <div  class="form-group">
+              <label style="margin-right:20px;">Uploaded File</label>
+              <input type="text" formControlName="file" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.file.errors }">
+              <button for="files" class="upload-btn-1" (click)="changeFile()">Upload new File</button>
+          </div>
+          </div>
+
+        </div>  
+      </div>
+        
+      </form>
+      <div style="margin-left:420px;display: flex">
         <button type="button" class="btn btn-sm btn-shape outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;" (click)="onSubmit()">Submit</button>
         <button type="button" class="btn btn-sm btn-shape1 outline text-white ml-3 ml-2 mt-2"style="height:30px;width:80px;margin-left:30px;" (click)="reset()">Reset</button>
-      </form>
+      </div>
     </div>
 </div>

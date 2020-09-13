@@ -26,14 +26,17 @@ export class PoUploadDataComponent implements OnInit {
   progress = false;
   fileCheck = false;
   dateCheck = false;
+  editFileCheck = false;
+  edit = false;
+  editRowVal: PODetail;
 
   ngOnInit() {
   
     this.poUploadFormGroup = this.formBuilder.group({
-    orderNumber: ['', Validators.required],
+    orderNo: ['', Validators.required],
     item: ['', Validators.required],
     make: ['', Validators.required],
-    modelNumber: ['', [Validators.required ]],
+    modelNo: ['', [Validators.required ]],
     quantity : ['', [Validators.required]],
     rate : ['', [Validators.required]],
     remark : ['', [Validators.required]],
@@ -42,6 +45,28 @@ export class PoUploadDataComponent implements OnInit {
     customer : ['', [Validators.required]],
     file : ['', [Validators.required]],
   });
+
+  this.route.params.subscribe(params => {
+    console.log(params);
+    if (params['editPo']) {
+      this.editFileCheck = true;
+      this.edit = true;
+      this.editRowVal = this.circularService.editPoRow;
+      console.log(this.editRowVal);
+      const d = this.editRowVal.date;
+      console.log(d.substring(0, d.length - 1));
+      console.log(d);
+      const dateFormat = new Date(d.substring(0, d.length - 1));
+      console.log(dateFormat);
+      this.poUploadFormGroup.setValue({orderNo: this.editRowVal.orderNo,item : this.editRowVal.item,make : this.editRowVal.make,
+        date:dateFormat,modelNo:this.editRowVal.modelNo,quantity:this.editRowVal.quantity,rate:this.editRowVal.rate,
+        remark:this.editRowVal.remark,itemCode:this.editRowVal.itemCode,customer:this.editRowVal.customer,file:this.editRowVal.fileName });
+      console.log(this.poUploadFormGroup.value);
+      this.fileId = this.editRowVal.fileName;
+      this.poUploadFormGroup.get('orderNo').disable();
+    }
+  });
+
   }
 
   get f() { return this.poUploadFormGroup.controls; }
@@ -63,10 +88,14 @@ export class PoUploadDataComponent implements OnInit {
     console.log(this.poUploadFormGroup.value.item);
 
     this.poDetail = new PODetail();
-    this.poDetail.orderNo = this.poUploadFormGroup.value.orderNumber;
+    if (!this.edit) {
+      this.poDetail.orderNo = this.poUploadFormGroup.value.orderNo;
+    } else {
+      this.poDetail.orderNo = this.editRowVal.orderNo;
+    }
     this.poDetail.item = this.poUploadFormGroup.value.item;
     this.poDetail.make = this.poUploadFormGroup.value.make;
-    this.poDetail.modelNo = this.poUploadFormGroup.value.modelNumber;
+    this.poDetail.modelNo = this.poUploadFormGroup.value.modelNo;
     this.poDetail.quantity = this.poUploadFormGroup.value.quantity;
     this.poDetail.rate = this.poUploadFormGroup.value.rate;
     this.poDetail.remark = this.poUploadFormGroup.value.remark;
@@ -77,22 +106,34 @@ export class PoUploadDataComponent implements OnInit {
 
     console.log(this.poDetail);
     console.log(this.poDetail.item + ' ' + this.poDetail.itemCode);
-        this.circularService.checkDuplicatePOIteamCode( this.poDetail.itemCode).subscribe((result1) => {
-          console.log(result1);
-          if (this.poDetail.fileName === undefined || this.poDetail.fileName === '') {
-            console.log('check file upload')
-          }
-          if (!result1) {
-              this.duplicateCheck = false;
-              this.circularService.savePODetail(this.poDetail).subscribe((result) => {
-                console.log(result);
-                this.submitted = false;
-              this.reset();
-            });
-          } else {
-            console.log('in duplicate true');
-            this.duplicateCheck = true;
-          }
+    if (!this.edit) {
+      this.checkAndSaveData();
+    } else {
+      this.savePoData();
+    }
+  }
+
+  checkAndSaveData() {
+    this.circularService.checkDuplicatePoOrderNo( this.poDetail.orderNo).subscribe((result1) => {
+      console.log(result1);
+      if (this.poDetail.fileName === undefined || this.poDetail.fileName === '') {
+        console.log('check file upload');
+      }
+      if (!result1) {
+        this.savePoData();
+      } else {
+        console.log('in duplicate true');
+        this.duplicateCheck = true;
+      }
+  });
+  }
+
+  savePoData() {
+    this.duplicateCheck = false;
+          this.circularService.savePODetail(this.poDetail).subscribe((result) => {
+            console.log(result);
+            this.submitted = false;
+          this.reset();
       });
   }
 
@@ -112,6 +153,8 @@ export class PoUploadDataComponent implements OnInit {
     this.dateCheck = false;
     this.progress = false;
     this.duplicateCheck = false;
+    this.editFileCheck = false;
+    this.edit = false;
     this.poUploadFormGroup.reset();
   }
 
@@ -135,7 +178,10 @@ export class PoUploadDataComponent implements OnInit {
      });
     }
 
-
+  changeFile() {
+      this.editFileCheck = false;
+      this.poUploadFormGroup.controls['file'].setValue('');
+  }
 }
 
 
