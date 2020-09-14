@@ -121,7 +121,7 @@ export class CircularServiceService {
   }
 
   checkDuplicateEnquiry(enquiryNumber){
-    return this.http.get(this.baseURL + 'App/Duplicate-Enquiry/' + enquiryNumber);
+    return this.http.post(this.baseURL + 'App/Duplicate-Enquiry', enquiryNumber );
   }
 
 
