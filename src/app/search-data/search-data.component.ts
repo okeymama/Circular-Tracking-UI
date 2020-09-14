@@ -32,6 +32,8 @@ export class SearchDataComponent implements OnInit {
   displayedColumnsEnquiry: string[] = [ 'enquiryNumber', 'companyName', 'personName', 'mobile', 'place', 'date', 'itemDescription', 'make', 'status', 'remark', 'fileName' , 'download', 'edit'];
   displayedColumnsPo: string[] = [ 'orderNo', 'item', 'make', 'modelNo', 'quantity', 'rate', 'remark', 'date', 'itemCode', 'customer', 'fileName' , 'download', 'edit'];
   //dataSource = new MatTableDataSource<CircularDetails>();
+  submitted = false;
+  f;
   selection = new SelectionModel<CircularDetails>(true, []);
   searchValue;
   showTable = false;
