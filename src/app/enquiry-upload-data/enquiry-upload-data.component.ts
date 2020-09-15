@@ -43,7 +43,7 @@ export class EnquiryUploadDataComponent implements OnInit {
         make : ['', [Validators.required]],
         status : ['', [Validators.required]],
         remark : ['', [Validators.required]],
-        file : ['', [Validators.required]],
+        file : [''],
       });
 
       this.route.params.subscribe(params => {
@@ -77,7 +77,7 @@ export class EnquiryUploadDataComponent implements OnInit {
       if (this.enquiryFormGroup.invalid) {
         const d = this.enquiryFormGroup.value.date;
         console.log(this.fileId);
-        this.fileCheck = this.fileId === undefined ? true : false;
+        //this.fileCheck = this.fileId === undefined ? true : false;
         this.dateCheck = (d === undefined || d === '' || d === null) ? true : false;
           return;
       }

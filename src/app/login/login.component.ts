@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     this.circularService.login(this.currentUser).subscribe((result) => {
          console.log(result);
          this.circularService.clientName = result.clientNumber;
+         this.circularService.isAdmin = result.isAdmin;
          if (result.isAdmin) {
           this.router.navigate(['admin/upload']);
          } else {

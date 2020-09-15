@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 })
 export class CircularServiceService {
 
+  private _isAdmin;
   private _clientName;
   private baseURL = 'http://localhost:8080/';
   private _editRow: CircularDetails;
@@ -22,6 +23,14 @@ export class CircularServiceService {
 
   set clientName(newName: string) {
     this._clientName = newName;
+  }
+
+  get isAdmin(): boolean {
+    return this._isAdmin;
+   }
+
+  set isAdmin(isAdmin: boolean) {
+    this._isAdmin = isAdmin;
   }
 
   get editRow(): CircularDetails {
@@ -121,7 +130,7 @@ export class CircularServiceService {
   }
 
   checkDuplicateEnquiry(enquiryNumber){
-    return this.http.get(this.baseURL + 'App/Duplicate-Enquiry/' + enquiryNumber);
+    return this.http.post(this.baseURL + 'App/Duplicate-Enquiry', enquiryNumber );
   }
 
 

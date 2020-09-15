@@ -22,16 +22,18 @@ let poData: PODetail[];
 export class SearchDataComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  isAdmin = false;
   dataSource;
   dataSource1;
   dataSource2;
   dataSource3;
-  displayedColumnsCircular: string[] = [ 'id', 'circularDetail', 'circularNumber', 'date', 'departmant', 'fileName' , 'download', 'edit'];
-  displayedColumnsCatalog: string[] = [ 'productName', 'modelNo', 'oldModelNo', 'voltage', 'range', 'colour', 'fileName' , 'download', 'edit'];
-  displayedColumnsEnquiry: string[] = [ 'enquiryNumber', 'companyName', 'personName', 'mobile', 'place', 'date', 'itemDescription', 'make', 'status', 'remark', 'fileName' , 'download', 'edit'];
-  displayedColumnsPo: string[] = [ 'orderNo', 'item', 'make', 'modelNo', 'quantity', 'rate', 'remark', 'date', 'itemCode', 'customer', 'fileName' , 'download', 'edit'];
+  displayedColumnsCircular: string[] = [ 'id', 'circularDetail', 'circularNumber', 'date', 'departmant', 'fileName' , 'download'];
+  displayedColumnsCatalog: string[] = [ 'productName', 'modelNo', 'oldModelNo', 'voltage', 'range', 'colour', 'fileName' , 'download'];
+  displayedColumnsEnquiry: string[] = [ 'enquiryNumber', 'companyName', 'personName', 'mobile', 'place', 'date', 'itemDescription', 'make', 'status', 'remark', 'fileName' , 'download'];
+  displayedColumnsPo: string[] = [ 'orderNo', 'item', 'make', 'modelNo', 'quantity', 'rate', 'remark', 'date', 'itemCode', 'customer', 'fileName' , 'download'];
   //dataSource = new MatTableDataSource<CircularDetails>();
+  submitted = false;
+  f;
   selection = new SelectionModel<CircularDetails>(true, []);
   searchValue;
   showTable = false;
@@ -50,6 +52,13 @@ export class SearchDataComponent implements OnInit {
   ngOnInit() {
     console.log('in search component');
     console.log(this.router.url);
+    this.isAdmin = this.circularService.isAdmin;
+    if(this.isAdmin){
+        this.displayedColumnsCircular.push('edit');
+        this.displayedColumnsCatalog.push('edit');
+        this.displayedColumnsEnquiry.push('edit');
+        this.displayedColumnsPo.push('edit');
+    }
     if (this.router.url === '/search') {
        this.showHeader = true;
     } else {
