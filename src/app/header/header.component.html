@@ -1,9 +1,9 @@
 <div class="row header">
-  <div class="col-11">
+  <div class="col-10">
    <span class="headerName">Search App</span>
   </div>
-  <div class="col-1">
-   <!-- <div><img class="headerImg" src="assets/header-image.png"></div> -->
+  <div class="col-2" style="display: flex;">
+    <div *ngIf="showUserName" class="userName"> {{username}} </div> 
     <div *ngIf="logout" class="logout" (click)="logoutFunction()">Logout</div>
   </div>
  </div>

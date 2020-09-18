@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CircularServiceService } from '../circular-service.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -8,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class AdminPageComponent implements OnInit {
 
   divColor = 'a';
-  constructor() { }
+  username;
+  constructor(private circularService: CircularServiceService) { }
 
   ngOnInit() {
+    this.username = this.circularService.currentUser.firstName + ' ' + this.circularService.currentUser.lastName;
   }
 
   getColor(s) {

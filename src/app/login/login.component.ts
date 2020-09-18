@@ -31,13 +31,20 @@ export class LoginComponent implements OnInit {
          console.log(result);
          this.circularService.clientName = result.clientNumber;
          this.circularService.isAdmin = result.isAdmin;
-         if (result.isAdmin) {
-          this.router.navigate(['admin/upload']);
-         } else {
-          this.router.navigate(['search']);
-         }
+         this.circularService.currentUser = result;
+         this.router.navigate(['admin/upload']);
+        //  if (result.isAdmin) {
+        //   this.router.navigate(['admin/upload']);
+        //  } else {
+        //   this.router.navigate(['search']);
+        //  }
     });
 
+  }
+
+  loginEnter(e) {
+    console.log('on enter');
+    this.login();
   }
 
   onKeyUsername() {

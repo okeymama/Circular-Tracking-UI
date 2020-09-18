@@ -9,6 +9,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   @Input() logout: string;
+  @Input() showUserName: string;
+  @Input() username: string;
   constructor(private circularService: CircularServiceService, private router: Router) { }
 
   ngOnInit() {

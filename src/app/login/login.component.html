@@ -1,4 +1,4 @@
-<app-header [logout]="false" ></app-header>
+<app-header [logout]="false" [showUserName]="false" [username]=""></app-header>
 <div class="main-div">
 
   <br><br>
@@ -26,6 +26,6 @@
     </div>
     <div [hidden]='pinv' class="alert alert-danger" >Password Doesn't Exist</div>
   <br><br>
-    <button (click)="login()"  type="button" class="btn-primary">Login</button>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button (click)="login()" (keyup.enter)="loginEnter($event)" type="button" class="btn-primary">Login</button>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </div>
 </div>

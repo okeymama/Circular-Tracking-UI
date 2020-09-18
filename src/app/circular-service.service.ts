@@ -15,6 +15,7 @@ export class CircularServiceService {
   private _editCatalogRow: CatalogDetail;
   private _editEnquiryRow: EnquiryDetail;
   private _editPoRow: PODetail;
+  private _currentUser: UserDetails;
   constructor(private http: HttpClient) { }
 
   get clientName(): string {
@@ -23,6 +24,14 @@ export class CircularServiceService {
 
   set clientName(newName: string) {
     this._clientName = newName;
+  }
+
+  get currentUser(): UserDetails {
+    return this._currentUser;
+   }
+
+  set currentUser(newName: UserDetails) {
+    this._currentUser = newName;
   }
 
   get isAdmin(): boolean {

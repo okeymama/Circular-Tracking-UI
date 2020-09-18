@@ -39,3 +39,10 @@
   .iconClass {
     cursor: pointer;
   }
+
+  .message {
+    color: black;
+    font-size: 30px;
+    margin-left: 400px;
+    margin-top: 100px;
+  }

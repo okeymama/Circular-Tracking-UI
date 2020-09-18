@@ -39,9 +39,21 @@
     opacity: 1;
 }
 
+.userName {
+    margin-top: 20px;
+    width: 100px;
+    height: 34px;
+    text-align: left;
+    font: Semibold 20px/30px Open Sans;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    cursor: pointer;
+}
+
 .logout {
     margin-top: 20px;
-    width: 233px;
+    width: 100px;
     height: 34px;
     text-align: left;
     font: Semibold 20px/30px Open Sans;
