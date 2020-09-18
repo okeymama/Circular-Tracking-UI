@@ -23,7 +23,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label>Item</label>
-                <input type="text" formControlName="item" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.item.errors }" />
+                <textarea rows="5" cols="40" formControlName="item" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.item.errors }" ></textarea>
                 <div *ngIf="submitted && f.item.errors" class="invalid-feedback">
                     <div *ngIf="f.item.errors.required">Item is required</div>
                 </div>

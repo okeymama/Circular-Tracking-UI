@@ -59,8 +59,7 @@
                 <div *ngIf="duplicateCheck" class="error-desc">Duplicate Enquiry Number</div>
               </div>
             </div>
-          </div>
-          <div class="sub-div-2">   
+             
             <div class="form-row">
               <div class="form-group">
                 <mat-label>Date &nbsp;&nbsp;&nbsp;&nbsp;</mat-label><br>
@@ -70,11 +69,12 @@
                   <div *ngIf="dateCheck" class="error-desc">Date is required</div>
               </div>
             </div>
-
+          </div>
+          <div class="sub-div-2">
             <div class="form-row">
               <div class="form-group">
                 <label>Item Description</label>
-                <input type="text" formControlName="itemDescription" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.itemDescription.errors }" />
+                <textarea rows="5" cols="40" formControlName="itemDescription" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.itemDescription.errors }" ></textarea>
                 <div *ngIf="submitted && f.itemDescription.errors" class="invalid-feedback">
                     <div *ngIf="f.itemDescription.errors.required">Item Description is required</div>
                 </div>

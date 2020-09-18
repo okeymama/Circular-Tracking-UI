@@ -82,12 +82,13 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    component: SearchDataComponent
+    component: SearchDataComponent,
+    canActivate: [AuthGuard]
   },
-  {
-    path: 'poUploadData',
-    component: PoUploadDataComponent
-  }
+  // {
+  //   path: 'poUploadData',
+  //   component: PoUploadDataComponent
+  // }
 ];
 
 @NgModule({

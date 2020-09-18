@@ -1,4 +1,4 @@
-<app-header [logout]="true" *ngIf="showHeader"></app-header>
+<app-header [logout]="true" *ngIf="showHeader" [showUserName]="true" [username]="username"></app-header>
   
   <div class="dropDown">
       <label>Select the type</label>
@@ -308,3 +308,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumnsPo;">
     </tr>
   </table>
+
+  <div *ngIf="noResultsMsg" class="message"> No Search results found</div>

@@ -11,7 +11,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label>Circular Detail</label>
-                <input type="text" formControlName="circularDetail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.circularDetail.errors }" />
+                <textarea rows="5" cols="40" formControlName="circularDetail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.circularDetail.errors }" ></textarea>
                 <div *ngIf="submitted && f.circularDetail.errors" class="invalid-feedback">
                     <div *ngIf="f.circularDetail.errors.required">Circular Detail is required</div>
                 </div>
@@ -27,6 +27,8 @@
               <div *ngIf="duplicateCheck" class="error-desc">Duplicate Circular Number</div>
            </div>
           </div>
+        </div>
+        <div class="sub-div-2">
 
             <div class="form-row">
                 <div class="form-group">
@@ -42,8 +44,7 @@
                     <div *ngIf="dateCheck" class="error-desc">Date is required</div>
                 </div>
             </div>
-          </div>
-          <div class="sub-div-2"> 
+           
             <div class="form-row"> 
             <div  class="form-group">
                 <label>Department</label>

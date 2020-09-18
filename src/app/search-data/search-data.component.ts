@@ -23,6 +23,7 @@ export class SearchDataComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isAdmin = false;
+  username;
   dataSource;
   dataSource1;
   dataSource2;
@@ -43,6 +44,7 @@ export class SearchDataComponent implements OnInit {
   showEnquiryTable = false;
   showPurchaseOrderTable = false;
   type;
+  noResultsMsg = false;
 
   typeList = ['' , 'Circular', 'Catalog' , 'Enquiry' , 'Purchase Order'];
 
@@ -53,6 +55,7 @@ export class SearchDataComponent implements OnInit {
     console.log('in search component');
     console.log(this.router.url);
     this.isAdmin = this.circularService.isAdmin;
+    this.username = this.circularService.currentUser.firstName + ' ' + this.circularService.currentUser.lastName;
     if(this.isAdmin){
         this.displayedColumnsCircular.push('edit');
         this.displayedColumnsCatalog.push('edit');
@@ -93,6 +96,10 @@ export class SearchDataComponent implements OnInit {
       if (circularData.length !== 0 ) {
           this.showTable = true;
           this.dataSource.paginator = this.paginator;
+          this.noResultsMsg = false;
+      } else {
+        this.noResultsMsg = true;
+        this.showTable = false;
       }
    });
   }
@@ -104,6 +111,10 @@ export class SearchDataComponent implements OnInit {
       this.dataSource1 = result;
       if (catalogData.length !== 0 ) {
           this.showCatalogTable = true;
+          this.noResultsMsg = false;
+      } else {
+        this.noResultsMsg = true;
+        this.showCatalogTable = false;
       }
    });
   }
@@ -115,6 +126,10 @@ export class SearchDataComponent implements OnInit {
       this.dataSource2 = result;
       if (enquiryData.length !== 0 ) {
           this.showEnquiryTable = true;
+          this.noResultsMsg = false;
+      } else {
+        this.noResultsMsg = true;
+        this.showEnquiryTable = false;
       }
    });
   }
@@ -125,7 +140,11 @@ export class SearchDataComponent implements OnInit {
       poData = result;
       this.dataSource3 = result;
       if (poData.length !== 0 ) {
-          this.showPurchaseOrderTable = true;
+        this.noResultsMsg = false;
+        this.showPurchaseOrderTable = true;
+      } else {
+        this.noResultsMsg = true;
+        this.showPurchaseOrderTable = false;
       }
    });
   }
@@ -164,6 +183,7 @@ export class SearchDataComponent implements OnInit {
   typeSelected(e) {
     console.log(e.target.value);
     this.searchValue = '';
+    this.noResultsMsg = false;
     console.log(this.type);
     if (this.type === null || this.type === undefined || this.type === '') {
       this.showSearch = false;
