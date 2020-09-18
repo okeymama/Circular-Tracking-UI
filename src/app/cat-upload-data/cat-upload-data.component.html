@@ -22,7 +22,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label>Model Number</label>
-                <input type="text" formControlName="modelNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.modelNo.errors }" />
+                <input type="text" formControlName="modelNo" class="form-control" (change) = "checkDuplicate($event)" [ngClass]="{ 'is-invalid': submitted && f.modelNo.errors }" />
                 <div *ngIf="submitted && f.modelNo.errors" class="invalid-feedback">
                     <div *ngIf="f.modelNo.errors.required">Model Number is required</div>
                 </div>

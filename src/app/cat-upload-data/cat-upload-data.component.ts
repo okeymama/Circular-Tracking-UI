@@ -90,28 +90,51 @@ export class CatUploadDataComponent implements OnInit {
 
       console.log(this.catalogDetail);
       console.log(this.catalogDetail.productName + ' ' + this.catalogDetail.modelNo);
-      if (!this.edit) {
-        this.checkAndSaveData();
-      } else {
+      // if (!this.edit) {
+      //   this.checkAndSaveData();
+      // } else {
+      //   this.saveCatalog();
+      // }
+      if (!this.duplicateCheck) {
         this.saveCatalog();
       }
+
     }
 
 
-    checkAndSaveData() {
-      this.circularService.checkDuplicateCatalog(this.catalogDetail.modelNo).subscribe((result1) => {
+    // checkAndSaveData() {
+    //   this.circularService.checkDuplicateCatalog(this.catalogDetail.modelNo).subscribe((result1) => {
+    //     console.log(result1);
+    //     if (this.catalogDetail.fileName === undefined || this.catalogDetail.fileName === '') {
+    //       console.log('check file upload')
+    //     }
+    //     if (!result1) {
+    //       this.saveCatalog();
+    //     } else {
+    //       console.log('in duplicate true');
+    //       this.duplicateCheck = true;
+    //     }
+    // });
+    // }
+
+    checkDuplicate(e) {
+      console.log('in check duplicate');
+      const modelNo = e.target.value;
+      if (modelNo != null && modelNo !== '') {
+      this.circularService.checkDuplicateCatalog(modelNo).subscribe((result1) => {
         console.log(result1);
-        if (this.catalogDetail.fileName === undefined || this.catalogDetail.fileName === '') {
-          console.log('check file upload')
-        }
         if (!result1) {
-          this.saveCatalog();
+          console.log('in duplicate false');
+          this.duplicateCheck = false;
         } else {
           console.log('in duplicate true');
           this.duplicateCheck = true;
         }
-    });
+      });
+    } else {
+      this.duplicateCheck = false;
     }
+}
 
     saveCatalog() {
       this.duplicateCheck = false;
@@ -132,6 +155,7 @@ export class CatUploadDataComponent implements OnInit {
       this.duplicateCheck = false;
       this.editFileCheck = false;
       this.edit = false;
+      this.catalogFormGroup.get('modelNo').enable();
       this.catalogFormGroup.reset();
     }
   

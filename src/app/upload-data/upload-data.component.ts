@@ -93,27 +93,50 @@ export class UploadDataComponent implements OnInit {
     console.log(this.circular);
     console.log('check circular number');
     console.log(this.circular.clientNumber + ' ' + this.circular.circularNumber);
-    if (!this.edit) {
-      this.checkAndSaveData();
-    } else {
+    // if (!this.edit) {
+    //   this.checkAndSaveData();
+    // } else {
+    //   this.saveCircular();
+    // }
+    if (!this.duplicateCheck) {
       this.saveCircular();
     }
 
 }
 
-checkAndSaveData() {
-  this.circularService.checkDuplicate(this.circular.clientNumber, this.circular.circularNumber).subscribe((result1) => {
+// checkAndSaveData() {
+//   this.circularService.checkDuplicate(this.circular.clientNumber, this.circular.circularNumber).subscribe((result1) => {
+//     console.log(result1);
+//     if (this.circular.fileName === undefined || this.circular.fileName === '') {
+//       console.log('check file upload')
+//     }
+//     if (!result1) {
+//         this.saveCircular();
+//      } else {
+//        console.log('in duplicate true');
+//        this.duplicateCheck = true;
+//      }
+// });
+// }
+
+checkDuplicate(e) {
+  console.log('in check duplicate');
+  const clientNumber = this.circularService.clientName;
+  const circularNumber = e.target.value;
+  if (circularNumber != null && circularNumber !== '') {
+  this.circularService.checkDuplicate(clientNumber, circularNumber).subscribe((result1) => {
     console.log(result1);
-    if (this.circular.fileName === undefined || this.circular.fileName === '') {
-      console.log('check file upload')
-    }
     if (!result1) {
-        this.saveCircular();
+       console.log('in duplicate false');
+       this.duplicateCheck = false;
      } else {
        console.log('in duplicate true');
        this.duplicateCheck = true;
      }
-});
+  });
+  } else {
+    this.duplicateCheck = false;
+  }
 }
 
 saveCircular() {
@@ -164,6 +187,7 @@ fileUpload(event) {
     this.duplicateCheck = false;
     this.editFileCheck = false;
     this.edit = false;
+    this.fileUploadFormGroup.get('circularNumber').enable();
     this.fileUploadFormGroup.reset();
   }
 

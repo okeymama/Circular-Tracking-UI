@@ -20,7 +20,7 @@
             <div class="form-row">
             <div class="form-group">
               <label>Circular Number</label>
-              <input type="text" formControlName="circularNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.circularNumber.errors }" />
+              <input type="text" formControlName="circularNumber" (change) = "checkDuplicate($event)" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.circularNumber.errors }" />
               <div *ngIf="submitted && f.circularNumber.errors" class="invalid-feedback">
                   <div *ngIf="f.circularNumber.errors.required">Client Name is required</div>
               </div>

@@ -12,7 +12,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label>Order Number</label>
-                <input type="text" formControlName="orderNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.orderNo.errors }" />
+                <input type="text" formControlName="orderNo" class="form-control" (change) = "checkDuplicate($event)" [ngClass]="{ 'is-invalid': submitted && f.orderNo.errors }" />
                 <div *ngIf="submitted && f.orderNo.errors" class="invalid-feedback">
                     <div *ngIf="f.orderNo.errors.required">Order Number is required</div>
                 </div>
