@@ -24,10 +24,11 @@ export class SearchDataComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isAdmin = false;
   username;
-  dataSource;
+  dataSource = new MatTableDataSource();
   dataSource1;
   dataSource2;
   dataSource3;
+  showPagination = false;
   displayedColumnsCircular: string[] = [ 'id', 'circularDetail', 'circularNumber', 'date', 'departmant', 'fileName' , 'download'];
   displayedColumnsCatalog: string[] = [ 'productName', 'modelNo', 'oldModelNo', 'voltage', 'range', 'colour', 'fileName' , 'download'];
   displayedColumnsEnquiry: string[] = [ 'enquiryNumber', 'companyName', 'personName', 'mobile', 'place', 'date', 'itemDescription', 'make', 'status', 'remark', 'fileName' , 'download'];
@@ -84,6 +85,10 @@ export class SearchDataComponent implements OnInit {
       }
   } else {
      this.showTable = false;
+     this.showCatalogTable = false;
+     this.showEnquiryTable = false;
+     this.showPurchaseOrderTable = false;
+     this.showPagination = false;
   }
   }
 
@@ -92,14 +97,17 @@ export class SearchDataComponent implements OnInit {
     this.circularService.searchByKey(clientName, this.searchValue).subscribe((result) => {
       console.log(result);
       circularData = result;
-      this.dataSource = result;
       if (circularData.length !== 0 ) {
+          this.dataSource = new MatTableDataSource(result);
           this.showTable = true;
-          this.dataSource.paginator = this.paginator;
           this.noResultsMsg = false;
+          this.dataSource.paginator = this.paginator;
+          this.paginator.firstPage();
+          this.showPagination = true;
       } else {
         this.noResultsMsg = true;
         this.showTable = false;
+        this.showPagination = false;
       }
    });
   }
@@ -108,13 +116,17 @@ export class SearchDataComponent implements OnInit {
     this.circularService.searchByKeyForCatalog(this.searchValue).subscribe((result) => {
       console.log(result);
       catalogData = result;
-      this.dataSource1 = result;
       if (catalogData.length !== 0 ) {
+          this.dataSource1 = new MatTableDataSource(result);
+          this.dataSource1.paginator = this.paginator;
+          this.paginator.firstPage();
           this.showCatalogTable = true;
           this.noResultsMsg = false;
+          this.showPagination = true;
       } else {
         this.noResultsMsg = true;
         this.showCatalogTable = false;
+        this.showPagination = false;
       }
    });
   }
@@ -123,13 +135,17 @@ export class SearchDataComponent implements OnInit {
     this.circularService.searchByKeyForEnquiry(this.searchValue).subscribe((result) => {
       console.log(result);
       enquiryData = result;
-      this.dataSource2 = result;
       if (enquiryData.length !== 0 ) {
+          this.dataSource2 = new MatTableDataSource(result);
+          this.dataSource2.paginator = this.paginator;
+          this.paginator.firstPage();
           this.showEnquiryTable = true;
           this.noResultsMsg = false;
+          this.showPagination = true;
       } else {
         this.noResultsMsg = true;
         this.showEnquiryTable = false;
+        this.showPagination = false;
       }
    });
   }
@@ -138,13 +154,17 @@ export class SearchDataComponent implements OnInit {
     this.circularService.searchByKeyForPo(this.searchValue).subscribe((result) => {
       console.log(result);
       poData = result;
-      this.dataSource3 = result;
       if (poData.length !== 0 ) {
+        this.dataSource3 = new MatTableDataSource(result);
+        this.dataSource3.paginator = this.paginator;
+        this.paginator.firstPage();
         this.noResultsMsg = false;
         this.showPurchaseOrderTable = true;
+        this.showPagination = true;
       } else {
         this.noResultsMsg = true;
         this.showPurchaseOrderTable = false;
+        this.showPagination = false;
       }
    });
   }
@@ -191,12 +211,14 @@ export class SearchDataComponent implements OnInit {
       this.showCatalogTable = false;
       this.showEnquiryTable = false;
       this.showPurchaseOrderTable = false;
+      this.showPagination = false;
     } else {
       this.showSearch = true;
       this.showTable = false;
       this.showCatalogTable = false;
       this.showEnquiryTable = false;
       this.showPurchaseOrderTable = false;
+      this.showPagination = false;
     }
 
   }

@@ -18,7 +18,7 @@
   }
   
   table {
-    width: 80%;
+    width: 1100px;
     margin-left: 100px;
   }
   
@@ -45,4 +45,32 @@
     font-size: 30px;
     margin-left: 400px;
     margin-top: 100px;
+  }
+
+  ::ng-deep .mat-paginator-container{
+    margin-left:100px;
+    background-color: #074982;
+    color: white;
+    justify-content: flex-start !important;
+    width: 1100px;
+  }
+
+  ::ng-deep .mat-paginator-range-actions {
+    color: white !important;
+  }
+
+  ::ng-deep .mat-icon-button  {
+    color: white !important;
+  }
+
+  ::ng-deep .mat-select-value {
+    color: white !important;
+  }
+
+  ::ng-deep .mat-select-arrow {
+    color: white !important;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    color: white !important;
   }
