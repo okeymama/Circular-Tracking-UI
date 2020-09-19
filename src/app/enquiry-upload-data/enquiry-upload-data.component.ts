@@ -106,26 +106,50 @@ export class EnquiryUploadDataComponent implements OnInit {
   
       console.log(this.enquiryDetail);
       console.log(this.enquiryDetail.enquiryNumber + ' ' + this.enquiryDetail.date);
-      if (!this.edit) {
-        this.checkAndSaveData();
-      } else {
+      // if (!this.edit) {
+      //   this.checkAndSaveData();
+      // } else {
+      //   this.saveEnquiryData();
+      // }
+      if (!this.duplicateCheck) {
         this.saveEnquiryData();
       }
     }
 
-    checkAndSaveData() {
-      this.circularService.checkDuplicateEnquiry(this.enquiryDetail.enquiryNumber).subscribe((result1) => {
-        console.log(result1);
-        if (this.enquiryDetail.fileName === undefined || this.enquiryDetail.fileName === '') {
-          console.log('check file upload');
-        }
-        if (!result1) {
-            this.saveEnquiryData();
-        } else {
-          console.log('in duplicate true');
-          this.duplicateCheck = true;
-        }
-    });
+    // checkAndSaveData() {
+    //   this.circularService.checkDuplicateEnquiry(this.enquiryDetail.enquiryNumber).subscribe((result1) => {
+    //     console.log(result1);
+    //     if (this.enquiryDetail.fileName === undefined || this.enquiryDetail.fileName === '') {
+    //       console.log('check file upload');
+    //     }
+    //     if (!result1) {
+    //         this.saveEnquiryData();
+    //     } else {
+    //       console.log('in duplicate true');
+    //       this.duplicateCheck = true;
+    //     }
+    // });
+    // }
+
+    checkDuplicate(e) {
+      console.log('in check duplicate');
+      const enquiryNumber = e.target.value;
+      if (enquiryNumber != null && enquiryNumber !== '') {
+        this.circularService.checkDuplicateEnquiry(enquiryNumber).subscribe((result1) => {
+          console.log(result1);
+          if (this.enquiryDetail.fileName === undefined || this.enquiryDetail.fileName === '') {
+            console.log('check file upload');
+          }
+          if (!result1) {
+            console.log('in duplicate false');
+          } else {
+            console.log('in duplicate true');
+            this.duplicateCheck = true;
+          }
+      });
+      } else {
+        this.duplicateCheck = false;
+      }
     }
 
     saveEnquiryData() {
@@ -156,6 +180,7 @@ export class EnquiryUploadDataComponent implements OnInit {
       this.duplicateCheck = false;
       this.editFileCheck = false;
       this.edit = false;
+      this.enquiryFormGroup.get('enquiryNumber').enable();
       this.enquiryFormGroup.reset();
     }
   

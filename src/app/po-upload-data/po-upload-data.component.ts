@@ -106,27 +106,52 @@ export class PoUploadDataComponent implements OnInit {
 
     console.log(this.poDetail);
     console.log(this.poDetail.item + ' ' + this.poDetail.itemCode);
-    if (!this.edit) {
-      this.checkAndSaveData();
-    } else {
+    // if (!this.edit) {
+    //   this.checkAndSaveData();
+    // } else {
+    //   this.savePoData();
+    // }
+
+    if (!this.duplicateCheck) {
       this.savePoData();
     }
   }
 
-  checkAndSaveData() {
-    this.circularService.checkDuplicatePoOrderNo( this.poDetail.orderNo).subscribe((result1) => {
-      console.log(result1);
-      if (this.poDetail.fileName === undefined || this.poDetail.fileName === '') {
-        console.log('check file upload');
-      }
-      if (!result1) {
-        this.savePoData();
-      } else {
-        console.log('in duplicate true');
-        this.duplicateCheck = true;
-      }
-  });
+  // checkAndSaveData() {
+  //   this.circularService.checkDuplicatePoOrderNo( this.poDetail.orderNo).subscribe((result1) => {
+  //     console.log(result1);
+  //     if (this.poDetail.fileName === undefined || this.poDetail.fileName === '') {
+  //       console.log('check file upload');
+  //     }
+  //     if (!result1) {
+  //       this.savePoData();
+  //     } else {
+  //       console.log('in duplicate true');
+  //       this.duplicateCheck = true;
+  //     }
+  // });
+  // }
+
+  checkDuplicate(e) {
+    console.log('in check duplicate');
+    const orderNo = e.target.value;
+    if (orderNo != null && orderNo !== '') {
+      this.circularService.checkDuplicatePoOrderNo( orderNo).subscribe((result1) => {
+        console.log(result1);
+        if (this.poDetail.fileName === undefined || this.poDetail.fileName === '') {
+          console.log('check file upload');
+        }
+        if (!result1) {
+          console.log('in duplicate false');
+        } else {
+          console.log('in duplicate true');
+          this.duplicateCheck = true;
+        }
+    });
+  } else {
+    this.duplicateCheck = false;
   }
+}
 
   savePoData() {
     this.duplicateCheck = false;
@@ -155,6 +180,7 @@ export class PoUploadDataComponent implements OnInit {
     this.duplicateCheck = false;
     this.editFileCheck = false;
     this.edit = false;
+    this.poUploadFormGroup.get('orderNo').enable();
     this.poUploadFormGroup.reset();
   }
 
