@@ -91,6 +91,8 @@ export class EnquiryUploadDataComponent implements OnInit {
       this.enquiryDetail.personName = this.enquiryFormGroup.value.personName;
       this.enquiryDetail.mobile = this.enquiryFormGroup.value.mobile;
       this.enquiryDetail.place = this.enquiryFormGroup.value.place;
+      this.enquiryDetail.createdBy = this.circularService.currentUser.userName;
+      console.log("user >>"+this.enquiryDetail.createdBy);
       if (!this.edit) {
         this.enquiryDetail.enquiryNumber = this.enquiryFormGroup.value.enquiryNumber;
       } else {

@@ -103,6 +103,7 @@ export class PoUploadDataComponent implements OnInit {
     this.poDetail.itemCode = this.poUploadFormGroup.value.itemCode;
     this.poDetail.customer = this.poUploadFormGroup.value.customer;
     this.poDetail.fileName = this.fileId;
+    this.poDetail.createdBy = this.circularService.currentUser.userName;
 
     console.log(this.poDetail);
     console.log(this.poDetail.item + ' ' + this.poDetail.itemCode);

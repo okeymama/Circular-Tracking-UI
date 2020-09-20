@@ -6,6 +6,7 @@ export class CircularDetails {
     public departmant: string;
     public fileName: string;
     public id: number;
+    public createdBy: string;
 
 }
 
@@ -26,6 +27,7 @@ export class UserDetails {
     public lastName: string;
     public password: string;
     public userName: string;
+    public createdBy: string;
 }
 
 
@@ -41,6 +43,7 @@ export class PODetail {
     public itemCode: string;
     public customer: string;
     public fileName: string;
+    public createdBy: string;
 }
 
 export class EnquiryDetail {
@@ -55,6 +58,7 @@ export class EnquiryDetail {
     public status: string;
     public remark: string;
     public fileName: string;
+    public createdBy: string;
 }
 
 export class CatalogDetail{
@@ -65,4 +69,5 @@ export class CatalogDetail{
     public range: number;
     public colour: string;
     public fileName: string;
+    public createdBy: string;
 }

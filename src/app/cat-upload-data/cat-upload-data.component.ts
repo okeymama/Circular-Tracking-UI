@@ -87,6 +87,7 @@ export class CatUploadDataComponent implements OnInit {
       this.catalogDetail.range = this.catalogFormGroup.value.range;
       this.catalogDetail.colour = this.catalogFormGroup.value.colour;
       this.catalogDetail.fileName = this.fileId;
+      this.catalogDetail.createdBy = this.circularService.currentUser.userName;
 
       console.log(this.catalogDetail);
       console.log(this.catalogDetail.productName + ' ' + this.catalogDetail.modelNo);
