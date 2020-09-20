@@ -89,6 +89,7 @@ export class UploadDataComponent implements OnInit {
     this.circular.departmant = this.fileUploadFormGroup.value.department;
     this.circular.clientNumber = this.circularService.clientName;
     this.circular.fileName = this.fileId;
+    this.circular.createdBy = this.circularService.currentUser.userName;
 
     console.log(this.circular);
     console.log('check circular number');
