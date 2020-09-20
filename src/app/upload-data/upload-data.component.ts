@@ -94,31 +94,11 @@ export class UploadDataComponent implements OnInit {
     console.log(this.circular);
     console.log('check circular number');
     console.log(this.circular.clientNumber + ' ' + this.circular.circularNumber);
-    // if (!this.edit) {
-    //   this.checkAndSaveData();
-    // } else {
-    //   this.saveCircular();
-    // }
     if (!this.duplicateCheck) {
       this.saveCircular();
     }
 
 }
-
-// checkAndSaveData() {
-//   this.circularService.checkDuplicate(this.circular.clientNumber, this.circular.circularNumber).subscribe((result1) => {
-//     console.log(result1);
-//     if (this.circular.fileName === undefined || this.circular.fileName === '') {
-//       console.log('check file upload')
-//     }
-//     if (!result1) {
-//         this.saveCircular();
-//      } else {
-//        console.log('in duplicate true');
-//        this.duplicateCheck = true;
-//      }
-// });
-// }
 
 checkDuplicate(e) {
   console.log('in check duplicate');

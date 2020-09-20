@@ -25,7 +25,10 @@
       </div>
     </div>
     <div [hidden]='pinv' class="alert alert-danger" >Password Doesn't Exist</div>
-  <br><br>
+  <br>
+  <div [hidden]='errorMsg' class="alert alert-danger" >User doesn't exist with provided username and password
+  </div>
+  <br>
     <button (click)="login()" (keyup.enter)="loginEnter($event)" type="button" class="btn-primary">Login</button>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </div>
 </div>
