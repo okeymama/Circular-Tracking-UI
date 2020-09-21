@@ -108,30 +108,10 @@ export class EnquiryUploadDataComponent implements OnInit {
   
       console.log(this.enquiryDetail);
       console.log(this.enquiryDetail.enquiryNumber + ' ' + this.enquiryDetail.date);
-      // if (!this.edit) {
-      //   this.checkAndSaveData();
-      // } else {
-      //   this.saveEnquiryData();
-      // }
       if (!this.duplicateCheck) {
         this.saveEnquiryData();
       }
     }
-
-    // checkAndSaveData() {
-    //   this.circularService.checkDuplicateEnquiry(this.enquiryDetail.enquiryNumber).subscribe((result1) => {
-    //     console.log(result1);
-    //     if (this.enquiryDetail.fileName === undefined || this.enquiryDetail.fileName === '') {
-    //       console.log('check file upload');
-    //     }
-    //     if (!result1) {
-    //         this.saveEnquiryData();
-    //     } else {
-    //       console.log('in duplicate true');
-    //       this.duplicateCheck = true;
-    //     }
-    // });
-    // }
 
     checkDuplicate(e) {
       console.log('in check duplicate');
@@ -139,11 +119,9 @@ export class EnquiryUploadDataComponent implements OnInit {
       if (enquiryNumber != null && enquiryNumber !== '') {
         this.circularService.checkDuplicateEnquiry(enquiryNumber).subscribe((result1) => {
           console.log(result1);
-          if (this.enquiryDetail.fileName === undefined || this.enquiryDetail.fileName === '') {
-            console.log('check file upload');
-          }
           if (!result1) {
             console.log('in duplicate false');
+            this.duplicateCheck = false;
           } else {
             console.log('in duplicate true');
             this.duplicateCheck = true;

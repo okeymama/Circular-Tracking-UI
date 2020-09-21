@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   public currentUser: User;
   ninv = true;
   pinv = true;
+  errorMsg = true;
   constructor(private router: Router, private circularService: CircularServiceService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.ninv = true;
     this.pinv = true;
+    this.errorMsg = true;
     console.log(this.username);
     console.log(this.password);
     this.currentUser = new User();
@@ -38,6 +40,13 @@ export class LoginComponent implements OnInit {
         //  } else {
         //   this.router.navigate(['search']);
         //  }
+    }, error => {
+      console.log('ERRORR');
+      console.log(error);
+      console.log(error.status);
+      if (error.status === 404) {
+        this.errorMsg = false;
+      }
     });
 
   }
@@ -49,10 +58,12 @@ export class LoginComponent implements OnInit {
 
   onKeyUsername() {
     this.ninv = true;
+    this.errorMsg = true;
   }
 
   onKeyPass() {
     this.pinv = true;
+    this.errorMsg = true;
   }
 
   close() {

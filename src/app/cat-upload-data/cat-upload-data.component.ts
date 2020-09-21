@@ -91,32 +91,12 @@ export class CatUploadDataComponent implements OnInit {
 
       console.log(this.catalogDetail);
       console.log(this.catalogDetail.productName + ' ' + this.catalogDetail.modelNo);
-      // if (!this.edit) {
-      //   this.checkAndSaveData();
-      // } else {
-      //   this.saveCatalog();
-      // }
       if (!this.duplicateCheck) {
         this.saveCatalog();
       }
 
     }
 
-
-    // checkAndSaveData() {
-    //   this.circularService.checkDuplicateCatalog(this.catalogDetail.modelNo).subscribe((result1) => {
-    //     console.log(result1);
-    //     if (this.catalogDetail.fileName === undefined || this.catalogDetail.fileName === '') {
-    //       console.log('check file upload')
-    //     }
-    //     if (!result1) {
-    //       this.saveCatalog();
-    //     } else {
-    //       console.log('in duplicate true');
-    //       this.duplicateCheck = true;
-    //     }
-    // });
-    // }
 
     checkDuplicate(e) {
       console.log('in check duplicate');
