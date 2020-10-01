@@ -4,6 +4,7 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { PODetail,FileUpload } from '../model';
 import { CircularServiceService } from '../circular-service.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-po-upload-data',
@@ -13,7 +14,7 @@ import { CircularServiceService } from '../circular-service.service';
 export class PoUploadDataComponent implements OnInit {
 
   constructor(private router: Router, private formBuilder: FormBuilder, private circularService: CircularServiceService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private snackBar: MatSnackBar) { }
 
   poUploadFormGroup: FormGroup;
   submitted = false;
@@ -136,9 +137,17 @@ export class PoUploadDataComponent implements OnInit {
     this.duplicateCheck = false;
           this.circularService.savePODetail(this.poDetail).subscribe((result) => {
             console.log(result);
+            this.openSnackBar('Saved Successfully !', '');
             this.submitted = false;
           this.reset();
       });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+      verticalPosition: 'top'
+    });
   }
 
   checkDate() {

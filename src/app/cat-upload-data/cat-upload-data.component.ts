@@ -4,6 +4,7 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { FileUpload, CatalogDetail } from '../model';
 import { CircularServiceService } from '../circular-service.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cat-upload-data',
@@ -13,7 +14,7 @@ import { CircularServiceService } from '../circular-service.service';
 export class CatUploadDataComponent implements OnInit {
 
   constructor(private router: Router, private formBuilder: FormBuilder, private circularService: CircularServiceService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private snackBar: MatSnackBar) { }
 
     catalogFormGroup: FormGroup;
     submitted = false;
@@ -121,9 +122,17 @@ export class CatUploadDataComponent implements OnInit {
       this.duplicateCheck = false;
       this.circularService.saveCatalogDetail(this.catalogDetail).subscribe((result) => {
         console.log(result);
+        this.openSnackBar('Saved Successfully !', '');
         this.submitted = false;
       this.reset();
     });
+    }
+
+    openSnackBar(message: string, action: string) {
+      this.snackBar.open(message, action, {
+        duration: 2000,
+        verticalPosition: 'top'
+      });
     }
 
 

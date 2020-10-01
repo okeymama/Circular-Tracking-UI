@@ -6,7 +6,8 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule, MatInputModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatDatepickerModule,
-  MatNativeDateModule, MatAutocompleteModule, MatCheckboxModule, MatIconModule,  MatTableModule, MatPaginatorModule } from '@angular/material';
+  MatNativeDateModule, MatAutocompleteModule, MatCheckboxModule, MatIconModule,  MatTableModule, 
+  MatPaginatorModule, MatSnackBarModule, MatRadioModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
@@ -122,6 +123,8 @@ const routes: Routes = [
     MatTableModule,
     MatCheckboxModule,
     MatPaginatorModule,
+    MatSnackBarModule,
+    MatRadioModule,
     RouterModule.forRoot(routes),
   ],
   providers: [CircularServiceService, AuthGuard],
