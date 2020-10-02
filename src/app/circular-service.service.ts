@@ -109,10 +109,16 @@ export class CircularServiceService {
   }
 
 
-  searchByKey(clientName, key) {
+  searchByKey(clientName, key, searchCriteria, circularSearchByFilter: CircularDetails) {
     console.log('in service for search by key');
     console.log(clientName + ' ' + key);
-    return this.http.get<CircularDetails[]>(this.baseURL + 'App/Circular/' + clientName + '/' + key);
+    console.log(circularSearchByFilter);
+    if (searchCriteria === 'Generic') {
+      return this.http.get<CircularDetails[]>(this.baseURL + 'App/Circular/' + clientName + '/' + key);
+    } else {
+      circularSearchByFilter.clientNumber = clientName;
+      return this.http.post<CircularDetails[]>(this.baseURL + 'App/Circulars-Match', circularSearchByFilter);
+    }
   }
 
 
@@ -132,10 +138,14 @@ export class CircularServiceService {
     return this.http.post(this.baseURL + 'App/PurchaseOrders', poDetail ,  { responseType : 'text'});
   }
 
-  searchByKeyForPo(key) {
+  searchByKeyForPo(key, searchCriteria, poSearchByFilter: PODetail) {
     console.log('in service for search by key');
     console.log(key);
-    return this.http.get<PODetail[]>(this.baseURL + 'App/PurchaseOrders/' + key);
+    if (searchCriteria === 'Generic') {
+     return this.http.get<PODetail[]>(this.baseURL + 'App/PurchaseOrders/' + key);
+    } else {
+     return this.http.post<PODetail[]>(this.baseURL + 'App/PurchaseOrders-Match' , poSearchByFilter);
+    }
   }
 
   checkDuplicateEnquiry(enquiryNumber){
@@ -149,10 +159,14 @@ export class CircularServiceService {
     return this.http.post(this.baseURL + 'App/Enquiry', enquiryDetail ,  { responseType : 'text'});
   }
 
-  searchByKeyForEnquiry(key) {
+  searchByKeyForEnquiry(key, searchCriteria, enquirySearchByFilter: EnquiryDetail) {
     console.log('in service for search by key');
     console.log(key);
-    return this.http.get<EnquiryDetail[]>(this.baseURL + 'App/Enquiry/' + key);
+    if (searchCriteria === 'Generic') {
+     return this.http.get<EnquiryDetail[]>(this.baseURL + 'App/Enquiry/' + key);
+    } else {
+     return this.http.post<EnquiryDetail[]>(this.baseURL + 'App/Enquiry-Match' , enquirySearchByFilter);
+    }
   }
 
   checkDuplicateCatalog(modelNo){
@@ -166,10 +180,15 @@ export class CircularServiceService {
     return this.http.post(this.baseURL + 'App/Catalog', catalogDetail ,  { responseType : 'text'});
   }
 
-  searchByKeyForCatalog( key) {
+  searchByKeyForCatalog( key, searchCriteria, catalogSearchByFilter: CatalogDetail) {
     console.log('in service for search by key');
     console.log(key);
-    return this.http.get<CatalogDetail[]>(this.baseURL + 'App/Catalog/' + key);
+    if (searchCriteria === 'Generic') {
+     return this.http.get<CatalogDetail[]>(this.baseURL + 'App/Catalog/' + key);
+    } else {
+      console.log('in Advanced search '+catalogSearchByFilter);
+     return this.http.post<CatalogDetail[]>(this.baseURL + 'App/Catalog-Match', catalogSearchByFilter);
+    }
   }
 
 }

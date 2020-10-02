@@ -38,6 +38,8 @@ export class SearchDataComponent implements OnInit {
   f;
   selection = new SelectionModel<CircularDetails>(true, []);
   searchValue;
+  showSearchCriteria = false;
+  searchCriteria;
   showTable = false;
   showHeader = false;
   showSearch = false;
@@ -46,6 +48,14 @@ export class SearchDataComponent implements OnInit {
   showPurchaseOrderTable = false;
   type;
   noResultsMsg = false;
+  circularSearchByFilter = new CircularDetails();
+  showCircularFilters = false;
+  catalogSearchByFilter = new CatalogDetail();
+  showCatalogFilters = false;
+  EnquirySearchByFilter = new EnquiryDetail();
+  showEnquiryFilters = false;
+  poSearchByFilter = new PODetail();
+  showPoFilters = false;
 
   typeList = ['' , 'Circular', 'Catalog' , 'Enquiry' , 'Purchase Order'];
 
@@ -70,18 +80,51 @@ export class SearchDataComponent implements OnInit {
     }
   }
 
+  searchType() {
+    console.log('In search type method');
+    console.log(this.searchCriteria);
+
+    this.reset();
+    if (this.searchCriteria === 'Generic') {
+      this.showSearch = true;
+      this.showCircularFilters = false;
+    } else if (this.searchCriteria === 'Advanced') {
+      this.showSearch = false;
+
+      if (this.type === 'Catalog') {
+        this.catalogSearchByFilter = new CatalogDetail();
+        this.showCatalogFilters = true;
+      } else if (this.type === 'Enquiry') {
+        this.showEnquiryFilters = true;
+        this.EnquirySearchByFilter = new EnquiryDetail();
+      } else if (this.type === 'Purchase Order') {
+        this.poSearchByFilter = new PODetail();
+        this.showPoFilters = true;
+      } else if (this.type === 'Circular') {
+        this.circularSearchByFilter = new CircularDetails();
+        this.showCircularFilters = true;
+      }
+    }
+  }
+
+  searchByFilter() {
+    console.log('In search by filters method');
+    console.log(this.circularSearchByFilter);
+  }
+
   search() {
     console.log('In search method');
     console.log(this.searchValue);
-    if (this.searchValue !== '' && this.searchValue !== undefined ) {
+    console.log('Search Criteria ' + this.searchCriteria);
+    if ((this.searchValue !== '' && this.searchValue !== undefined) || (this.searchCriteria !== '' && this.searchCriteria !== undefined )) {
       if (this.type === 'Catalog') {
-        this.searchCatalog();
+        this.searchCatalog(this.searchCriteria, this.catalogSearchByFilter);
       } else if (this.type === 'Enquiry') {
-        this.searchEnquiry();
+        this.searchEnquiry(this.searchCriteria, this.EnquirySearchByFilter);
       } else if (this.type === 'Purchase Order') {
-        this.searchPo();
+        this.searchPo(this.searchCriteria, this.poSearchByFilter);
       } else if (this.type === 'Circular') {
-        this.searchCircular();
+        this.searchCircular(this.searchCriteria, this.circularSearchByFilter);
       }
   } else {
      this.showTable = false;
@@ -92,9 +135,10 @@ export class SearchDataComponent implements OnInit {
   }
   }
 
-  searchCircular() {
+  searchCircular(searchCriteria, circularSearchByFilter) {
     const clientName = this.circularService.clientName;
-    this.circularService.searchByKey(clientName, this.searchValue).subscribe((result) => {
+    console.log(this.circularSearchByFilter);
+    this.circularService.searchByKey(clientName, this.searchValue, searchCriteria, circularSearchByFilter ).subscribe((result) => {
       console.log(result);
       circularData = result;
       if (circularData.length !== 0 ) {
@@ -112,8 +156,8 @@ export class SearchDataComponent implements OnInit {
    });
   }
 
-  searchCatalog() {
-    this.circularService.searchByKeyForCatalog(this.searchValue).subscribe((result) => {
+  searchCatalog(searchCriteria, catalogSearchByFilter) {
+    this.circularService.searchByKeyForCatalog(this.searchValue, searchCriteria, catalogSearchByFilter).subscribe((result) => {
       console.log(result);
       catalogData = result;
       if (catalogData.length !== 0 ) {
@@ -131,8 +175,8 @@ export class SearchDataComponent implements OnInit {
    });
   }
 
-  searchEnquiry() {
-    this.circularService.searchByKeyForEnquiry(this.searchValue).subscribe((result) => {
+  searchEnquiry(searchCriteria, enquirySearchByFilter) {
+    this.circularService.searchByKeyForEnquiry(this.searchValue, searchCriteria, enquirySearchByFilter).subscribe((result) => {
       console.log(result);
       enquiryData = result;
       if (enquiryData.length !== 0 ) {
@@ -150,8 +194,8 @@ export class SearchDataComponent implements OnInit {
    });
   }
 
-  searchPo() {
-    this.circularService.searchByKeyForPo(this.searchValue).subscribe((result) => {
+  searchPo(searchCriteria, poSearchByFilter) {
+    this.circularService.searchByKeyForPo(this.searchValue, searchCriteria, poSearchByFilter).subscribe((result) => {
       console.log(result);
       poData = result;
       if (poData.length !== 0 ) {
@@ -207,20 +251,29 @@ export class SearchDataComponent implements OnInit {
     console.log(this.type);
     if (this.type === null || this.type === undefined || this.type === '') {
       this.showSearch = false;
-      this.showTable = false;
-      this.showCatalogTable = false;
-      this.showEnquiryTable = false;
-      this.showPurchaseOrderTable = false;
-      this.showPagination = false;
+      this.reset();
+      this.showSearchCriteria = false;
+      this.searchCriteria = '';
     } else {
-      this.showSearch = true;
-      this.showTable = false;
-      this.showCatalogTable = false;
-      this.showEnquiryTable = false;
-      this.showPurchaseOrderTable = false;
-      this.showPagination = false;
+      // this.showSearch = true;
+      this.reset();
+      this.showSearchCriteria = true;
+      this.searchType();
     }
 
+  }
+
+  reset() {
+    this.showTable = false;
+    this.showCatalogTable = false;
+    this.showEnquiryTable = false;
+    this.showPurchaseOrderTable = false;
+    this.showPagination = false;
+    this.showCircularFilters = false;
+    this.showCatalogFilters = false;
+    this.showEnquiryFilters = false;
+    this.showPoFilters = false;
+    this.searchValue = '';
   }
 
 }

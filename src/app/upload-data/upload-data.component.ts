@@ -3,6 +3,7 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { CircularDetails, FileUpload } from '../model';
 import { CircularServiceService } from '../circular-service.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class UploadDataComponent implements OnInit {
   editRowVal: CircularDetails;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private circularService: CircularServiceService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     console.log('ngonit');
@@ -126,9 +127,17 @@ saveCircular() {
       this.circularService.saveCircular(this.circular).subscribe((result) => {
         console.log(result);
         this.submitted = false;
+        this.openSnackBar('Saved Successfully !', '');
         this.reset();
       });
 }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+      verticalPosition: 'top'
+    });
+  }
 
 fileUpload(event) {
   this.progress = false;

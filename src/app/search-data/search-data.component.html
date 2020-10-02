@@ -1,7 +1,7 @@
 <app-header [logout]="true" *ngIf="showHeader" [showUserName]="true" [username]="username"></app-header>
-  
+<div style="display: flex;">  
   <div class="dropDown">
-      <label>Select the type</label>
+      <label class="labelName">Select the type</label>
       <select [(ngModel)]="type" class="form-control" (change)="typeSelected($event)" placeholder="Select the type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
           <option [value]="t" *ngFor="let t of typeList">{{t}}</option>
       </select>
@@ -9,6 +9,15 @@
           <div *ngIf="f.type.errors.required">Select Type</div>
       </div>
   </div>
+  <br>
+  <div class="radioSelDiv">
+  <mat-radio-group *ngIf="showSearchCriteria" [(ngModel)]="searchCriteria" (change)="searchType()" aria-label="Select an option" class="">
+    <label class="labelName">Select Search Criteria</label><br>
+    <mat-radio-button value="Generic">Generic</mat-radio-button> &nbsp;&nbsp;&nbsp;&nbsp;
+    <mat-radio-button value="Advanced">Advanced</mat-radio-button>
+  </mat-radio-group>
+ </div>
+</div>
 
 <form class="example-form">
 
@@ -17,6 +26,156 @@
     <input type="text" (keyup.enter)="search()" matInput placeholder="search" name="search" [(ngModel)]="searchValue">
     <mat-icon matSuffix (click)="search()">search</mat-icon>
   </mat-form-field>
+</form>
+
+<form name="form" #f="ngForm" novalidate class="filterForm">
+  <fieldset *ngIf="showCircularFilters">
+  <div class="filterDiv">
+   <div class="filtertitle">Circular Detail
+   <input type="text"  class="form-control filter" matInput  name="circularDetail" [(ngModel)]="circularSearchByFilter.circularDetail">    
+   </div>
+   <div class="filtertitle">Circular Number 
+   <input type="text"  class="form-control filter" matInput  name="circularNumber" [(ngModel)]="circularSearchByFilter.circularNumber">    
+   </div>
+   <div class="filtertitle">Created By
+   <input type="text"  class="form-control filter" matInput  name="createdBy" [(ngModel)]="circularSearchByFilter.createdBy"> 
+   </div>
+   <div class="filtertitle">Date
+   <input type="text"  class="form-control filter" matInput  name="date" [(ngModel)]="circularSearchByFilter.date"> 
+   </div>
+   <div class="filtertitle">Department
+    <input type="text"  class="form-control filter" matInput  name="departmant" [(ngModel)]="circularSearchByFilter.departmant"> 
+    </div>
+   <div class="filtertitle">File Name
+   <input type="text"  class="form-control filter" matInput  name="fileName" [(ngModel)]="circularSearchByFilter.fileName"> 
+   </div>
+   <button (click)="search()" type="button" class="btn-primary">Search</button>
+  </div>
+  </fieldset>
+
+  <fieldset *ngIf="showCatalogFilters">
+    <div class="filterDiv1">
+     <div class="filtertitle">Colour
+     <input type="text"  class="form-control filter" matInput  name="colour" [(ngModel)]="catalogSearchByFilter.colour">    
+     </div>
+     <div class="filtertitle">Created By 
+     <input type="text"  class="form-control filter" matInput  name="createdBy" [(ngModel)]="catalogSearchByFilter.createdBy">    
+     </div>
+     <div class="filtertitle">File Name
+     <input type="text"  class="form-control filter" matInput  name="fileName" [(ngModel)]="catalogSearchByFilter.fileName"> 
+     </div>
+     <div class="filtertitle">Model No
+     <input type="text"  class="form-control filter" matInput  name="modelNo" [(ngModel)]="catalogSearchByFilter.modelNo"> 
+     </div>
+    </div>
+    <div class="filterDiv1">
+     <div class="filtertitle">Old Model No
+      <input type="text"  class="form-control filter" matInput  name="oldModelNo" [(ngModel)]="catalogSearchByFilter.oldModelNo"> 
+      </div>
+     <div class="filtertitle">Product Name
+     <input type="text"  class="form-control filter" matInput  name="productName" [(ngModel)]="catalogSearchByFilter.productName"> 
+     </div>
+     <div class="filtertitle"> Range
+     <input type="text"  class="form-control filter" matInput  name="range" [(ngModel)]="catalogSearchByFilter.range"> 
+     </div>
+     <div class="filtertitle"> Voltage
+     <input type="text"  class="form-control filter" matInput  name="voltage" [(ngModel)]="catalogSearchByFilter.voltage"> 
+     </div>
+     <button (click)="search()" type="button" class="btn-primary">Search</button>
+    </div>
+  </fieldset>
+
+  <fieldset *ngIf="showEnquiryFilters">
+    <div class="filterDiv2">
+     <div class="filtertitle">Company Name
+     <input type="text"  class="form-control filter" matInput  name="companyName" [(ngModel)]="EnquirySearchByFilter.companyName">    
+     </div>
+     <div class="filtertitle">Enquiry Number 
+     <input type="text"  class="form-control filter" matInput  name="enquiryNumber" [(ngModel)]="EnquirySearchByFilter.enquiryNumber">    
+     </div>
+     <div class="filtertitle">Created By
+     <input type="text"  class="form-control filter" matInput  name="createdBy" [(ngModel)]="EnquirySearchByFilter.createdBy"> 
+     </div>
+     <div class="filtertitle">Date
+     <input type="text"  class="form-control filter" matInput  name="date" [(ngModel)]="EnquirySearchByFilter.date"> 
+     </div>
+     <div class="filtertitle">Item Description
+      <input type="text"  class="form-control filter" matInput  name="itemDescription" [(ngModel)]="EnquirySearchByFilter.itemDescription"> 
+      </div>
+     <div class="filtertitle">File Name
+     <input type="text"  class="form-control filter" matInput  name="fileName" [(ngModel)]="EnquirySearchByFilter.fileName"> 
+     </div>
+    </div>
+    <div class="filterDiv2">
+     <div class="filtertitle">Make
+      <input type="text"  class="form-control filter" matInput  name="make" [(ngModel)]="EnquirySearchByFilter.make"> 
+     </div>
+     <div class="filtertitle">Mobile
+     <input type="text"  class="form-control filter" matInput  name="mobile" [(ngModel)]="EnquirySearchByFilter.mobile"> 
+     </div>
+    <!-- <div class="filtertitle">Person Name
+     <input type="text"  class="form-control filter" matInput  name="Person" [(ngModel)]="EnquirySearchByFilter.fileName"> 
+     </div> -->
+     <div class="filtertitle">Place
+     <input type="text"  class="form-control filter" matInput  name="place" [(ngModel)]="EnquirySearchByFilter.place"> 
+     </div>
+     <div class="filtertitle">Remark
+     <input type="text"  class="form-control filter" matInput  name="remark" [(ngModel)]="EnquirySearchByFilter.remark"> 
+     </div>
+     <div class="filtertitle">Status
+     <input type="text"  class="form-control filter" matInput  name="status" [(ngModel)]="EnquirySearchByFilter.status"> 
+     </div>
+     <button (click)="search()" type="button" class="btn-primary">Search</button>
+    </div>
+  </fieldset>
+
+
+  <fieldset *ngIf="showPoFilters">
+    <div class="filterDiv2">
+     <div class="filtertitle">Customer
+     <input type="text"  class="form-control filter1" matInput  name="customer" [(ngModel)]="poSearchByFilter.customer">    
+     </div>
+     <div class="filtertitle">Created Date 
+     <input type="text"  class="form-control filter1" matInput  name="createdDate" [(ngModel)]="poSearchByFilter.createdDate">    
+     </div>
+     <div class="filtertitle">Created By
+     <input type="text"  class="form-control filter1" matInput  name="createdBy" [(ngModel)]="poSearchByFilter.createdBy"> 
+     </div>
+     <div class="filtertitle">Date
+     <input type="text"  class="form-control filter1" matInput  name="date" [(ngModel)]="poSearchByFilter.date"> 
+     </div>
+     <div class="filtertitle">File Name
+     <input type="text"  class="form-control filter1" matInput  name="fileName" [(ngModel)]="poSearchByFilter.fileName"> 
+     </div>
+     <div class="filtertitle">Item
+     <input type="text"  class="form-control filter1" matInput  name="item" [(ngModel)]="poSearchByFilter.item"> 
+     </div>
+     <div class="filtertitle">Item Code
+     <input type="text"  class="form-control filter1" matInput  name="itemCode" [(ngModel)]="poSearchByFilter.itemCode"> 
+     </div>
+    </div>
+    <div class="filterDiv2">
+     <div class="filtertitle">make
+     <input type="text"  class="form-control filter1" matInput  name="make" [(ngModel)]="poSearchByFilter.make"> 
+     </div>
+     <div class="filtertitle">Model No
+     <input type="text"  class="form-control filter1" matInput  name="modelNo" [(ngModel)]="poSearchByFilter.modelNo"> 
+     </div>
+     <div class="filtertitle">Order No
+     <input type="text"  class="form-control filter1" matInput  name="orderNo" [(ngModel)]="poSearchByFilter.orderNo"> 
+     </div>
+     <div class="filtertitle">Quantity
+     <input type="text"  class="form-control filter1" matInput  name="quantity" [(ngModel)]="poSearchByFilter.quantity"> 
+     </div>
+     <div class="filtertitle">Rate
+     <input type="text"  class="form-control filter1" matInput  name="rate" [(ngModel)]="poSearchByFilter.rate"> 
+     </div>
+     <div class="filtertitle">Remark
+     <input type="text"  class="form-control filter1" matInput  name="remark" [(ngModel)]="poSearchByFilter.remark"> 
+     </div>
+     <button (click)="search()" type="button" class="btn-primary">Search</button>
+    </div>
+    </fieldset>
 </form>
 
   <table mat-table [dataSource]="dataSource"  *ngIf="showTable" class="mat-elevation-z8">

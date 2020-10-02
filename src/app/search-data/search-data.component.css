@@ -8,7 +8,27 @@
     margin-left: 400px;
     min-width: 200px;
     max-width: 300px;
-    margin-top: 25px;
+    margin-top: 50px;
+    justify-content: center;
+}
+
+.radioSelDiv {
+    margin-left: 50px;
+    min-width: 400px;
+    max-width: 400px;
+    margin-top: 55px;
+}
+
+.radioSel {
+  margin-left: 450px;
+  margin-top: 100px;
+}
+
+.labelName {
+    font-family: 'Open Sans Regular';
+    font-weight: bold;
+    font-size: 12px;
+    color: black;
 }
   
   .example-full-width {
@@ -16,6 +36,85 @@
     width: 100%;
     margin-top:6px;
   }
+
+  .filterForm {
+    margin-bottom: 6px;
+  }
+
+  .filter{
+    font-family:'Open Sans';
+    font-size: 16px;
+    color: black;
+    padding-left: 5px;
+    font-weight: bold;
+    vertical-align: 0px;
+
+}
+
+.filtertitle{
+    font-family: 'Open Sans Regular';
+    font-weight: bold;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 15px;
+    font-size: 12px;
+    color: black;
+  }
+  
+  .filter {
+
+    height:30px;
+    width:184px;
+    border-radius: 3px;
+    margin-left: 0px;
+    border: 1px solid #ced4da;
+    font-weight: 400;
+    font-size: 14px;
+    margin-top: 3px;
+  }
+
+  .filter1 {
+    height:30px;
+    width:150px;
+    border-radius: 3px;
+    margin-left: 0px;
+    border: 1px solid #ced4da;
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 3px;
+  }
+  
+  .filterDiv {
+    display: flex;
+    justify-content: center;
+    margin-top:6px;
+  }
+
+  .filterDiv1 {
+    display: flex;
+    margin-left: 200px;
+    margin-top:6px;
+  }
+
+  .filterDiv2 {
+    display: flex;
+    margin-left: 50px;
+    margin-top:6px;
+  }
+
+  .btn-primary {
+    background-color: #074982 !important;
+    border-color: #074982;
+    width:80px;
+    height:30px;
+    margin-top:20px;
+    margin-left: 12px;
+}
+
+option[default] {
+    display: none;
+  }
+
   
   table {
     width: 1100px;
@@ -74,3 +173,18 @@
   ::ng-deep .mat-form-field-underline {
     color: white !important;
   }
+
+  
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  opacity: 0.5 !important;     /*click effect color change*/
+  background-color: #074982 !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #074982!important;   /*inner circle color change*/
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+ border-color:#074982!important; /*outer ring color change*/
+} 
