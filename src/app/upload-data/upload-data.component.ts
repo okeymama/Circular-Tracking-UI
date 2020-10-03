@@ -15,6 +15,7 @@ export class UploadDataComponent implements OnInit {
 
   fileUploadFormGroup: FormGroup;
   submitted = false;
+  currDate = new Date();
   public currentFileUpload: File;
   public selectedFiles: FileList;
   circular: CircularDetails;
@@ -33,7 +34,7 @@ export class UploadDataComponent implements OnInit {
 
   ngOnInit() {
     console.log('ngonit');
-   
+    console.log(this.currDate);
     this.fileUploadFormGroup = this.formBuilder.group({
       circularDetail: ['', Validators.required],
       circularNumber: ['', Validators.required],
