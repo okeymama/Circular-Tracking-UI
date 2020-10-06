@@ -33,7 +33,6 @@ export class UploadDataComponent implements OnInit {
 
   ngOnInit() {
     console.log('ngonit');
-   
     this.fileUploadFormGroup = this.formBuilder.group({
       circularDetail: ['', Validators.required],
       circularNumber: ['', Validators.required],
@@ -41,6 +40,7 @@ export class UploadDataComponent implements OnInit {
       department: ['', [Validators.required ]],
       file : ['', [Validators.required]],
     });
+    
     this.route.params.subscribe(params => {
       console.log(params);
       if (params['editCircular']) {
@@ -58,6 +58,8 @@ export class UploadDataComponent implements OnInit {
         console.log(this.fileUploadFormGroup.value);
         this.fileId = this.editRowVal.fileName;
         this.fileUploadFormGroup.get('circularNumber').disable();
+      } else {
+        this.fileUploadFormGroup.controls['date'].setValue(new Date());
       }
     });
   }
@@ -179,6 +181,7 @@ fileUpload(event) {
     this.edit = false;
     this.fileUploadFormGroup.get('circularNumber').enable();
     this.fileUploadFormGroup.reset();
+    this.fileUploadFormGroup.controls['date'].setValue(new Date());
   }
 
   changeFile() {

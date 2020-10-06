@@ -65,6 +65,8 @@ export class PoUploadDataComponent implements OnInit {
       console.log(this.poUploadFormGroup.value);
       this.fileId = this.editRowVal.fileName;
       this.poUploadFormGroup.get('orderNo').disable();
+    } else {
+      this.poUploadFormGroup.controls['date'].setValue(new Date());
     }
   });
 
@@ -170,6 +172,7 @@ export class PoUploadDataComponent implements OnInit {
     this.edit = false;
     this.poUploadFormGroup.get('orderNo').enable();
     this.poUploadFormGroup.reset();
+    this.poUploadFormGroup.controls['date'].setValue(new Date());
   }
 
   fileUpload(event) {

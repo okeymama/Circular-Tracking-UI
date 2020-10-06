@@ -65,6 +65,8 @@ export class EnquiryUploadDataComponent implements OnInit {
           console.log(this.enquiryFormGroup.value);
           this.fileId = this.editRowVal.fileName;
           this.enquiryFormGroup.get('enquiryNumber').disable();
+        } else {
+          this.enquiryFormGroup.controls['date'].setValue(new Date());
         }
       });
     }
@@ -171,6 +173,7 @@ export class EnquiryUploadDataComponent implements OnInit {
       this.edit = false;
       this.enquiryFormGroup.get('enquiryNumber').enable();
       this.enquiryFormGroup.reset();
+      this.enquiryFormGroup.controls['date'].setValue(new Date());
     }
   
     fileUpload(event) {

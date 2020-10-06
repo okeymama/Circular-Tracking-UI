@@ -7,7 +7,9 @@ import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule, MatInputModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatDatepickerModule,
   MatNativeDateModule, MatAutocompleteModule, MatCheckboxModule, MatIconModule,  MatTableModule, 
-  MatPaginatorModule, MatSnackBarModule, MatRadioModule } from '@angular/material';
+  MatPaginatorModule, MatSnackBarModule, MatRadioModule, MAT_DATE_LOCALE } from '@angular/material';
+import { NativeDateAdapter, DateAdapter,MAT_DATE_FORMATS } from '@angular/material';
+import { formatDate } from '@angular/common';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
@@ -20,6 +22,7 @@ import { CatUploadDataComponent } from './cat-upload-data/cat-upload-data.compon
 import { EnquiryUploadDataComponent } from './enquiry-upload-data/enquiry-upload-data.component';
 import { PoUploadDataComponent } from './po-upload-data/po-upload-data.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { PICK_FORMATS, PickDateAdapter } from './date-format';
 
 
 const routes: Routes = [
@@ -127,7 +130,9 @@ const routes: Routes = [
     MatRadioModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [CircularServiceService, AuthGuard],
+  providers: [CircularServiceService, AuthGuard,
+    {provide: DateAdapter, useClass: PickDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -67,11 +67,15 @@ export class SearchDataComponent implements OnInit {
     console.log(this.router.url);
     this.isAdmin = this.circularService.isAdmin;
     this.username = this.circularService.currentUser.firstName + ' ' + this.circularService.currentUser.lastName;
-    if(this.isAdmin){
+    if (this.isAdmin) {
         this.displayedColumnsCircular.push('edit');
         this.displayedColumnsCatalog.push('edit');
         this.displayedColumnsEnquiry.push('edit');
         this.displayedColumnsPo.push('edit');
+        this.displayedColumnsCircular.push('createdBy');
+        this.displayedColumnsCatalog.push('createdBy');
+        this.displayedColumnsEnquiry.push('createdBy');
+        this.displayedColumnsPo.push('createdBy');
     }
     if (this.router.url === '/search') {
        this.showHeader = true;
