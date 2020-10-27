@@ -191,7 +191,7 @@
     <!-- Column 2 -->
     <ng-container matColumnDef="circularDetail">
       <th mat-header-cell *matHeaderCellDef> Circular Detail </th>
-      <td mat-cell *matCellDef="let element"> {{element.circularDetail}} </td>
+      <td mat-cell *matCellDef="let element" matTooltip={{element.circularDetail}} matTooltipClass="missing-mds-tooltip"> {{element.circularDetail}} </td>
     </ng-container>
   
     <!-- Column 3 -->
@@ -352,9 +352,9 @@
     </ng-container>
 
     <!-- Column 7 -->
-    <ng-container matColumnDef="itemDescription">
+    <ng-container matColumnDef="itemDescription" style="width:250px;">
       <th mat-header-cell *matHeaderCellDef> Item Description </th>
-      <td mat-cell *matCellDef="let element"> {{element.itemDescription}} </td>
+      <td mat-cell *matCellDef="let element" matTooltip={{element.itemDescription}} matTooltipClass="missing-mds-tooltip"> {{element.itemDescription}} </td>
     </ng-container>
 
     <!-- Column 8 -->
@@ -418,7 +418,7 @@
     <!-- Column 2 -->
     <ng-container matColumnDef="item">
       <th mat-header-cell *matHeaderCellDef> Item </th>
-      <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+      <td mat-cell *matCellDef="let element" matTooltip={{element.item}} matTooltipClass="missing-mds-tooltip"> {{element.item}} </td>
     </ng-container>
   
     <!-- Column 3 -->
