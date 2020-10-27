@@ -140,16 +140,34 @@ option[default] {
     color: white !important;
     text-align: center;
     padding: 0px;
+    width:30px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  th.mat-header-cell:first-of-type {
+  ::ng-deep th.mat-header-cell:first-of-type {
     padding-left: 0px !important;
   }
 
+  ::ng-deep td.mat-cell:first-of-type{
+    padding-left: 0px !important;
+  }
+
+  .mat-column-itemDescription .cdk-column-itemDescription {
+    overflow: scroll !important;
+  }
+
   td.mat-cell {
-      min-width : 50px;
-      max-width : 150px;
+      max-width: 200px;
+      min-width: 40px;
+      padding-left: 5px;
+      padding-right: 5px;
       text-align: center;
+      max-height: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
   }
 
   .iconClass {
@@ -210,3 +228,7 @@ option[default] {
 ::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
  border-color:#074982!important; /*outer ring color change*/
 } 
+
+::ng-deep .missing-mds-tooltip {
+  white-space: pre-line;
+}

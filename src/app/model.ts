@@ -26,6 +26,8 @@ export class UserDetails {
     public isAdmin: boolean;
     public lastName: string;
     public password: string;
+    public token: string;
+    public tokenUser: string;
     public userName: string;
     public createdBy: string;
 }

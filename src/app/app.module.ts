@@ -6,8 +6,8 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule, MatInputModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatDatepickerModule,
-  MatNativeDateModule, MatAutocompleteModule, MatCheckboxModule, MatIconModule,  MatTableModule, 
-  MatPaginatorModule, MatSnackBarModule, MatRadioModule, MAT_DATE_LOCALE } from '@angular/material';
+  MatNativeDateModule, MatAutocompleteModule, MatCheckboxModule, MatIconModule,  MatTableModule, MAT_HAMMER_OPTIONS,
+  MatPaginatorModule, MatSnackBarModule, MatRadioModule, MAT_DATE_LOCALE, MatTooltipModule } from '@angular/material';
 import { NativeDateAdapter, DateAdapter,MAT_DATE_FORMATS } from '@angular/material';
 import { formatDate } from '@angular/common';
 import { AppComponent } from './app.component';
@@ -128,11 +128,20 @@ const routes: Routes = [
     MatPaginatorModule,
     MatSnackBarModule,
     MatRadioModule,
+    MatTooltipModule,
     RouterModule.forRoot(routes),
   ],
   providers: [CircularServiceService, AuthGuard,
     {provide: DateAdapter, useClass: PickDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}],
+    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS},
+    {
+      provide: MAT_HAMMER_OPTIONS,
+      useValue: {
+        cssProps: {
+          userSelect: true
+        }
+      },
+    },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
