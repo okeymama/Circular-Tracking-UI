@@ -85,7 +85,7 @@ export class CircularServiceService {
 
   fileUpload(fileObj: FileUpload): Observable<any> {
     console.log('in service for upload');
-    const headers = new HttpHeaders().set('clientName', fileObj.clientName);
+    const headers = new HttpHeaders().set('clientName', fileObj.clientName).set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser+':'+ this.currentUser.token));
     // const HttpUploadOptions = {
     //   headers: new HttpHeaders({ 'clientName': '001', ResponseType: 'text'}, )
     // }
@@ -97,15 +97,17 @@ export class CircularServiceService {
   }
 
   checkDuplicate(clientName, circularNumber) {
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
     console.log('check duplicate service');
     console.log(clientName + ' ' + circularNumber);
-    return this.http.get(this.baseURL + 'App/Duplicate-Circular/' + clientName + '/' + circularNumber);
+    return this.http.get(this.baseURL + 'App/Duplicate-Circular/' + clientName + '/' + circularNumber, {headers});
   }
 
   saveCircular(circularDetails) {
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
     console.log('in service for save circular');
     console.log(circularDetails);
-    return this.http.post(this.baseURL + 'App/Circular', circularDetails ,  { responseType : 'text'});
+    return this.http.post(this.baseURL + 'App/Circular', circularDetails ,  { headers, responseType : 'text'});
   }
 
 
@@ -113,11 +115,12 @@ export class CircularServiceService {
     console.log('in service for search by key');
     console.log(clientName + ' ' + key);
     console.log(circularSearchByFilter);
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
     if (searchCriteria === 'Generic') {
-      return this.http.get<CircularDetails[]>(this.baseURL + 'App/Circular/' + clientName + '/' + key);
+      return this.http.get<CircularDetails[]>(this.baseURL + 'App/Circular/' + clientName + '/' + key, {headers});
     } else {
       circularSearchByFilter.clientNumber = clientName;
-      return this.http.post<CircularDetails[]>(this.baseURL + 'App/Circulars-Match', circularSearchByFilter);
+      return this.http.post<CircularDetails[]>(this.baseURL + 'App/Circulars-Match', circularSearchByFilter, {headers});
     }
   }
 
@@ -125,69 +128,79 @@ export class CircularServiceService {
   fileDownload(clientName, fileName): any {
     console.log('in file download service funtion');
     console.log(clientName + ' ' + fileName);
-      return this.http.get(this.baseURL + 'File/' + clientName + '/' + fileName, { responseType: 'blob' });
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
+      return this.http.get(this.baseURL + 'File/' + clientName + '/' + fileName, { headers, responseType: 'blob' });
   }
 
-  checkDuplicatePoOrderNo(orderNo){
-    return this.http.get(this.baseURL + 'App/Duplicate-PurchaseOrder/' + orderNo);
+  checkDuplicatePoOrderNo(orderNo) {
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
+    return this.http.get(this.baseURL + 'App/Duplicate-PurchaseOrder/' + orderNo, {headers});
   }
 
   savePODetail(poDetail){
     console.log('Save PO service');
     console.log(poDetail);
-    return this.http.post(this.baseURL + 'App/PurchaseOrders', poDetail ,  { responseType : 'text'});
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
+    return this.http.post(this.baseURL + 'App/PurchaseOrders', poDetail ,  { headers, responseType : 'text'});
   }
 
   searchByKeyForPo(key, searchCriteria, poSearchByFilter: PODetail) {
     console.log('in service for search by key');
     console.log(key);
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
     if (searchCriteria === 'Generic') {
-     return this.http.get<PODetail[]>(this.baseURL + 'App/PurchaseOrders/' + key);
+     return this.http.get<PODetail[]>(this.baseURL + 'App/PurchaseOrders/' + key, {headers});
     } else {
-     return this.http.post<PODetail[]>(this.baseURL + 'App/PurchaseOrders-Match' , poSearchByFilter);
+     return this.http.post<PODetail[]>(this.baseURL + 'App/PurchaseOrders-Match' , poSearchByFilter, {headers});
     }
   }
 
   checkDuplicateEnquiry(enquiryNumber){
-    return this.http.post(this.baseURL + 'App/Duplicate-Enquiry', enquiryNumber );
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
+    return this.http.post(this.baseURL + 'App/Duplicate-Enquiry', enquiryNumber, {headers} );
   }
 
 
   saveEnquiryDetail(enquiryDetail){
     console.log('Save EnquiryDetail service');
     console.log(enquiryDetail);
-    return this.http.post(this.baseURL + 'App/Enquiry', enquiryDetail ,  { responseType : 'text'});
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
+    return this.http.post(this.baseURL + 'App/Enquiry', enquiryDetail ,  { headers, responseType : 'text'});
   }
 
   searchByKeyForEnquiry(key, searchCriteria, enquirySearchByFilter: EnquiryDetail) {
     console.log('in service for search by key');
     console.log(key);
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
     if (searchCriteria === 'Generic') {
-     return this.http.get<EnquiryDetail[]>(this.baseURL + 'App/Enquiry/' + key);
+     return this.http.get<EnquiryDetail[]>(this.baseURL + 'App/Enquiry/' + key, {headers});
     } else {
-     return this.http.post<EnquiryDetail[]>(this.baseURL + 'App/Enquiry-Match' , enquirySearchByFilter);
+     return this.http.post<EnquiryDetail[]>(this.baseURL + 'App/Enquiry-Match' , enquirySearchByFilter, {headers});
     }
   }
 
-  checkDuplicateCatalog(modelNo){
-    return this.http.get(this.baseURL + 'App/Duplicate-Catalog/' + modelNo);
+  checkDuplicateCatalog(modelNo) {
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
+    return this.http.get(this.baseURL + 'App/Duplicate-Catalog/' + modelNo, {headers});
   }
 
 
   saveCatalogDetail(catalogDetail){
     console.log('Save CatalogDetail service');
     console.log(catalogDetail);
-    return this.http.post(this.baseURL + 'App/Catalog', catalogDetail ,  { responseType : 'text'});
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
+    return this.http.post(this.baseURL + 'App/Catalog', catalogDetail ,  { headers, responseType : 'text'});
   }
 
   searchByKeyForCatalog( key, searchCriteria, catalogSearchByFilter: CatalogDetail) {
     console.log('in service for search by key');
     console.log(key);
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(this.currentUser.tokenUser + ':' +  this.currentUser.token));
     if (searchCriteria === 'Generic') {
-     return this.http.get<CatalogDetail[]>(this.baseURL + 'App/Catalog/' + key);
+     return this.http.get<CatalogDetail[]>(this.baseURL + 'App/Catalog/' + key, {headers});
     } else {
-      console.log('in Advanced search '+catalogSearchByFilter);
-     return this.http.post<CatalogDetail[]>(this.baseURL + 'App/Catalog-Match', catalogSearchByFilter);
+      console.log('in Advanced search '+ catalogSearchByFilter);
+     return this.http.post<CatalogDetail[]>(this.baseURL + 'App/Catalog-Match', catalogSearchByFilter, {headers});
     }
   }
 
